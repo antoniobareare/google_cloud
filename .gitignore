@@ -1,0 +1,28 @@
+# Secretos y credenciales
+.env
+.env.*
+*.json.key
+*-key.json
+credentials*.json
+
+# Terraform
+.terraform/
+*.tfstate
+*.tfstate.*
+*.tfplan
+terraform.tfvars
+
+# Python
+.venv/
+__pycache__/
+*.pyc
+
+# Sistema
+.DS_Store
+
+# Windows y logs
+Thumbs.db
+*.log
+
+# ADK
+.adk/
