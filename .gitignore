@@ -1,9 +1,14 @@
 # Secretos y credenciales
 .env
 .env.*
+!.env.example
 *.json.key
 *-key.json
 credentials*.json
+application_default_credentials.json
+
+# Ajustes personales de Claude Code (los del equipo sí van: .claude/settings.json)
+.claude/settings.local.json
 
 # Terraform
 .terraform/
@@ -16,6 +21,10 @@ terraform.tfvars
 .venv/
 __pycache__/
 *.pyc
+.pytest_cache/
+
+# ADK
+.adk/
 
 # Sistema
 .DS_Store
@@ -23,6 +32,3 @@ __pycache__/
 # Windows y logs
 Thumbs.db
 *.log
-
-# ADK
-.adk/
