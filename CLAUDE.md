@@ -14,4 +14,5 @@ Las reglas del proyecto están en AGENTS.md (compartidas con Antigravity). Sígu
 - Ejecuta gcloud, bq, gh, git, adk y terraform con la herramienta Bash (Git Bash), no con PowerShell: las reglas allow/ask de .claude/settings.json están escritas para Bash. PowerShell solo para lo que sea propio de Windows (winget, rutas del registro).
 - Si gcloud no aparece en Git Bash: export PATH="$PATH:/c/Users/tecni/AppData/Local/Google/Cloud SDK/google-cloud-sdk/bin"
 - El usuario se llama Antonio: usa owner=antonio en las etiquetas, ramas antonio/<tema> y recursos de prueba agente-antonio, bucket-antonio-...
+- Crear proyectos de GCP (`gcloud projects create`) requiere DOBLE confirmación: 1) antes de ejecutarlo, pregunta en el chat indicando ID, nombre, cuenta de facturación prevista y coste posible, y espera un "sí" explícito; 2) después el permiso "ask" de settings.json vuelve a pedir aprobación. Vincular facturación sigue bloqueado: lo hace Antonio a mano.
 - Repositorio: github.com/antoniobareare/google_cloud (privado). Rama de trabajo: antonio/setup; a main solo por pull request.

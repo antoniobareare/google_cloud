@@ -66,13 +66,14 @@
       "Bash(terraform apply *)",
       "Bash(git push *)",
       "Bash(git commit *)",
-      "Bash(git merge *)"
+      "Bash(git merge *)",
+      "Bash(gcloud projects create *)",
+      "PowerShell(gcloud projects create *)"
     ],
     "deny": [
       "Bash(gcloud * delete *)",
       "Bash(gcloud * remove-iam-policy-binding *)",
       "Bash(gcloud * set-iam-policy *)",
-      "Bash(gcloud projects create *)",
       "Bash(gcloud billing projects link *)",
       "Bash(gcloud billing projects unlink *)",
       "Bash(gcloud services disable *)",
@@ -94,7 +95,6 @@
       "PowerShell(gcloud * delete *)",
       "PowerShell(gcloud * remove-iam-policy-binding *)",
       "PowerShell(gcloud * set-iam-policy *)",
-      "PowerShell(gcloud projects create *)",
       "PowerShell(gcloud billing projects link *)",
       "PowerShell(gcloud billing projects unlink *)",
       "PowerShell(gcloud services disable *)",
