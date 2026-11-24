@@ -11,6 +11,7 @@
 | .env.example | Plantilla de variables; cópiala como .env | Tú / ADK |
 | docs/reto.md | Plantilla para pegar el enunciado | Todos |
 | tests/casos_prueba.md | Plantilla de casos de prueba | Todos |
+| docs/PUESTA_EN_MARCHA.md | Instalación en un ordenador nuevo (guía para Claude) | Claude Code |
 
 Importante: .claude/settings.json solo protege a Claude Code. El agente propio de Antigravity
 solo sigue AGENTS.md como instrucciones, así que revisa tú sus comandos de borrado/despliegue.
