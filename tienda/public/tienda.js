@@ -35,16 +35,22 @@ if (buscador && categoria) {
   categoria.addEventListener('change', filtrar);
 }
 
-const agregar = document.querySelector('[data-agregar]');
-agregar?.addEventListener('click', () => {
-  const items = leerCarrito();
-  const sku = agregar.dataset.agregar;
-  const linea = items.find((item) => item.sku === sku);
-  if (linea) linea.quantity += 1;
-  else items.push({ sku, quantity: 1 });
-  guardarCarrito(items);
-  document.querySelector('#estado-producto').textContent = 'Añadido al carrito.';
-});
+// Todos los botones "Añadir" de la página: el producto principal y los de venta cruzada
+for (const agregar of document.querySelectorAll('[data-agregar]')) {
+  agregar.addEventListener('click', () => {
+    const items = leerCarrito();
+    const sku = agregar.dataset.agregar;
+    const linea = items.find((item) => item.sku === sku);
+    if (linea) linea.quantity += 1;
+    else items.push({ sku, quantity: 1 });
+    guardarCarrito(items);
+    const nombre = agregar.dataset.nombre;
+    const estado = document.querySelector('#estado-producto');
+    if (estado) estado.textContent = nombre ? `${nombre} añadido al carrito.` : 'Añadido al carrito.';
+    agregar.textContent = '✓ Añadido';
+    if (location.pathname === '/carrito') location.reload();   // actualiza líneas y total
+  });
+}
 
 async function mostrarCarrito(formulario) {
   const estado = document.querySelector('#estado-carrito');

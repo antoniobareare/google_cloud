@@ -52,11 +52,7 @@ export function crearVentaCruzada(productos = [], recsPorOrigen = existsSync(RUT
   const tarjeta = (p) => `<li class="vc-item">
   <a href="/producto/${encodeURIComponent(p.sku)}">${esc(p.nombre)}</a>
   <span class="vc-precio">${euros(p.precio)}</span>
-  <form action="/carrito/anadir" method="post">
-    <input type="hidden" name="sku" value="${esc(p.sku)}">
-    <input type="hidden" name="cantidad" value="1">
-    <button type="submit">Añadir ${esc(p.nombre)} al carrito</button>
-  </form>
+  <button type="button" data-agregar="${esc(p.sku)}" data-nombre="${esc(p.nombre)}">Añadir ${esc(p.nombre)} al carrito</button>
 </li>`;
 
   const bloque = (titulo, lista) => lista.length

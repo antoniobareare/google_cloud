@@ -9,6 +9,7 @@ import { fileURLToPath } from 'node:url';
 import { enviarPedido, ErrorPedido, prepararPedido } from './pedidos.js';
 import { carrito, esc, ficha, portada, rutaProducto } from './vistas.js';
 import { responder, calentar } from './asistente.js';
+import { crearVentaCruzada } from './ventacruzada.js';
 
 const DIR = path.dirname(fileURLToPath(import.meta.url));
 const PORT = Number(process.env.PORT || 8080);
@@ -35,6 +36,23 @@ const productos = listaCatalogo.filter((producto) =>
   Number.isFinite(producto.precio) && producto.precio >= 0 &&
   Number.isSafeInteger(Math.round(producto.precio * 100)));
 const PRODUCTOS = new Map(productos.map((producto) => [producto.sku, producto]));
+
+// ---------- Venta cruzada (hito del agente: algo de iluminación, textil, almacenaje o accesorios) ----------
+const VENTA_CRUZADA = crearVentaCruzada(productos);
+// En el carrito (página igual para todos): complementos baratos que encajan con casi cualquier compra
+const COMPLEMENTOS = ['lampara-de-pie-arco', 'pack-4-cojines-decorativos', 'manta-para-sofa', 'alfombra-de-salon-160x230']
+  .map((sku) => PRODUCTOS.get(sku)).filter(Boolean);
+const BLOQUE_COMPLEMENTOS = COMPLEMENTOS.length ? `
+  <section class="vc" aria-label="Completa tu casa">
+    <h2>Antes de pagar: completa tu casa</h2>
+    <p>Los clientes que compran muebles suelen añadir iluminación y textil. Con pedidos desde 500 € el envío es gratis y desde 1.500 € el montaje también.</p>
+    <ul class="vc-lista">${COMPLEMENTOS.map((p) => `<li class="vc-item">
+      <a href="/producto/${encodeURIComponent(p.sku)}">${esc(p.nombre)}</a>
+      <span class="vc-precio">${p.precio.toLocaleString('es-ES', { minimumFractionDigits: 2 })} €</span>
+      <button type="button" data-agregar="${esc(p.sku)}" data-nombre="${esc(p.nombre)}">Añadir ${esc(p.nombre)} al carrito</button>
+    </li>`).join('')}</ul>
+    <p id="estado-producto" role="status"></p>
+  </section>` : '';
 
 function pagina({ titulo, descripcion, h1, cuerpo }) {
   return `<!doctype html>
@@ -89,7 +107,7 @@ const ESTATICOS = {
     titulo: 'Tu carrito de compra · Casa Devoteam',
     descripcion: 'Revisa tus muebles y completa tu pedido como invitado en Casa Devoteam.',
     h1: 'Tu carrito de compra',
-    cuerpo: carrito,
+    cuerpo: carrito + BLOQUE_COMPLEMENTOS,
   }), 'text/html; charset=utf-8'),
   '/catalogo.json': preparar(JSON.stringify({ productos }), 'application/json; charset=utf-8'),
   '/estilos.css': preparar(leer('public/estilos.css'), 'text/css; charset=utf-8'),
@@ -103,7 +121,7 @@ const FICHAS = new Map(productos.map((producto) => [rutaProducto(producto.sku), 
   titulo: `${producto.nombre} · Casa Devoteam`,
   descripcion: `Consulta el precio y las características de ${producto.nombre} en Casa Devoteam.`,
   h1: producto.nombre,
-  cuerpo: ficha(producto),
+  cuerpo: ficha(producto) + VENTA_CRUZADA.bloqueFicha(producto.sku),
 }), 'text/html; charset=utf-8')]));
 
 const PAGINA_404 = preparar(
