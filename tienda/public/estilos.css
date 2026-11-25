@@ -19,3 +19,21 @@ form.campos{display:grid;gap:10px;max-width:520px}
 table{width:100%;border-collapse:collapse}
 td,th{padding:8px;border-bottom:1px solid #e5e5e0;text-align:left}
 @media (max-width:480px){.cab nav a{margin-left:0;margin-right:12px}h1{font-size:1.35rem}}
+
+/* ---- Persona 4: carrito y checkout (carrito.js) ---- */
+.tabla-scroll{max-width:100%;overflow-x:auto}
+.tabla-carrito{width:100%;border-collapse:collapse}
+.tabla-carrito th,.tabla-carrito td{padding:.5rem;border-bottom:1px solid #ddd;text-align:left;vertical-align:middle}
+.boton,.boton-sec{display:inline-block;min-height:44px;padding:.6rem 1.1rem;border:0;border-radius:8px;font-size:1rem;cursor:pointer;text-decoration:none}
+.boton{background:#1d4ed8;color:#fff;font-weight:700}
+.boton-sec{background:#e5e7eb;color:#111}
+.boton-principal{font-size:1.15rem;margin:.75rem 0}
+.form-cantidad{display:flex;flex-wrap:wrap;gap:.4rem;align-items:center}
+.form-cantidad input{width:4.5rem;min-height:44px}
+.form-checkout{display:grid;gap:.4rem;max-width:32rem}
+.form-checkout input{min-height:44px;font-size:1rem;padding:.4rem;width:100%;box-sizing:border-box}
+.error{color:#b91c1c;font-weight:600}
+.aviso,.ok{background:#dcfce7;color:#14532d;padding:.75rem;border-radius:8px}
+.total{font-size:1.25rem}
+.lista-cruzada{list-style:none;padding:0;display:grid;gap:.75rem}
+.lista-cruzada li{display:flex;flex-wrap:wrap;gap:.5rem;align-items:center}

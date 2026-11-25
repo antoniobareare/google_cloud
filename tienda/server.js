@@ -6,6 +6,7 @@ import { gzipSync } from 'node:zlib';
 import { randomBytes } from 'node:crypto';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { manejarCompra } from './carrito.js';
 
 const DIR = path.dirname(fileURLToPath(import.meta.url));
 const PORT = Number(process.env.PORT) || 8080;
@@ -89,10 +90,12 @@ const PAGINA_500 = preparar(
 function enviar(req, res, estado, r, extra = {}) {
   const cab = { ...SEGURIDAD, 'content-type': r.tipo, 'cache-control': 'no-store', ...extra };
   // Cookie de sesión: la primera vez que se visita cualquier página
+  const cookies = [].concat(extra['set-cookie'] || []);
   if (!/(?:^|;\s*)hk_sesion=/.test(req.headers.cookie || '')) {
-    cab['set-cookie'] = `hk_sesion=${randomBytes(16).toString('hex')}; Path=/; Max-Age=86400; Secure; HttpOnly; SameSite=Lax`;
+    cookies.push(`hk_sesion=${randomBytes(16).toString('hex')}; Path=/; Max-Age=86400; Secure; HttpOnly; SameSite=Lax`);
   }
-  const gz = /\bgzip\b/.test(req.headers['accept-encoding'] || '') && r.raw.length > 512;
+  if (cookies.length) cab['set-cookie'] = cookies; else delete cab['set-cookie'];
+  const gz = !!r.gz && /\bgzip\b/.test(req.headers['accept-encoding'] || '') && r.raw.length > 512;
   const cuerpo = gz ? r.gz : r.raw;
   if (gz) { cab['content-encoding'] = 'gzip'; cab['vary'] = 'Accept-Encoding'; }
   cab['content-length'] = cuerpo.length;
@@ -129,6 +132,10 @@ async function manejar(req, res) {
     if (!pregunta.trim()) return json(req, res, 200, { respuesta: 'Hazme una pregunta sobre nuestros productos, envíos, montaje, devoluciones, garantía o pago.' });
     return json(req, res, 200, { respuesta: 'Soy el asistente de Casa Devoteam. Estamos terminando de cargar el catálogo; vuelve a preguntarme en unos minutos.' });
   }
+
+  // Persona 4: carrito, checkout y pedido al buzón (carrito.js)
+  const ctx = { enviar, pagina, esc, leerCuerpo, html: (s) => preparar(s, 'text/html; charset=utf-8') };
+  if ((await manejarCompra(req, res, ruta, ctx)) !== false) return;
 
   return enviar(req, res, 404, PAGINA_404);
 }
