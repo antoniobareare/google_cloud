@@ -2,7 +2,7 @@
 // Todo lo que se sirve está en memoria (rápido para "Tiempo de respuesta" y "Black Friday").
 import http from 'node:http';
 import { readFileSync, existsSync } from 'node:fs';
-import { gzipSync } from 'node:zlib';
+import { gzipSync, brotliCompressSync, constants as zlibConst } from 'node:zlib';
 import { randomBytes } from 'node:crypto';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -61,10 +61,17 @@ ${cuerpo}
 </html>`;
 }
 
-// Respuesta precalculada (con gzip) para lo estático
+// Respuesta precalculada al arrancar (sin compresión, gzip y brotli): cada petición solo copia bytes.
+// IMPORTANTE para el hito "Tiempo de respuesta": la portada NUNCA debe calcularse en cada visita
+// (nada de llamar a Gemini, leer ficheros ni recorrer el catálogo por petición).
 function preparar(cuerpo, tipo) {
   const raw = Buffer.from(cuerpo);
-  return { raw, gz: gzipSync(raw), tipo };
+  return {
+    raw,
+    gz: gzipSync(raw, { level: 9 }),
+    br: brotliCompressSync(raw, { params: { [zlibConst.BROTLI_PARAM_QUALITY]: 11 } }),
+    tipo,
+  };
 }
 
 const ESTATICOS = {
@@ -114,16 +121,20 @@ function enviar(req, res, estado, r, extra = {}) {
   if (!/(?:^|;\s*)hk_sesion=/.test(req.headers.cookie || '')) {
     cab['set-cookie'] = `hk_sesion=${randomBytes(16).toString('hex')}; Path=/; Max-Age=86400; Secure; HttpOnly; SameSite=Lax`;
   }
-  const gz = r.gz && /\bgzip\b/.test(req.headers['accept-encoding'] || '') && r.raw.length > 512;
-  const cuerpo = gz ? r.gz : r.raw;
-  if (gz) { cab['content-encoding'] = 'gzip'; cab['vary'] = 'Accept-Encoding'; }
+  let cuerpo = r.raw;
+  if (r.raw.length > 512 && (r.br || r.gz)) {
+    const ae = req.headers['accept-encoding'] || '';
+    cab['vary'] = 'Accept-Encoding';
+    if (r.br && /\bbr\b/.test(ae)) { cuerpo = r.br; cab['content-encoding'] = 'br'; }
+    else if (r.gz && /\bgzip\b/.test(ae)) { cuerpo = r.gz; cab['content-encoding'] = 'gzip'; }
+  }
   cab['content-length'] = cuerpo.length;
   res.writeHead(estado, cab);
   res.end(req.method === 'HEAD' ? undefined : cuerpo);
 }
 
 function json(req, res, estado, obj) {
-  enviar(req, res, estado, { raw: Buffer.from(JSON.stringify(obj)), gz: null, tipo: 'application/json; charset=utf-8' });
+  enviar(req, res, estado, { raw: Buffer.from(JSON.stringify(obj)), gz: null, br: null, tipo: 'application/json; charset=utf-8' });
 }
 
 function leerCuerpo(req, max = 64 * 1024) {
@@ -196,7 +207,10 @@ const servidor = http.createServer((req, res) => {
     else res.destroy();
   });
 });
-servidor.keepAliveTimeout = 65000;
+// Cloud Run reutiliza conexiones hacia el contenedor hasta 600 s. Si Node las cerrara antes,
+// alguna petición caería en una conexión recién cerrada y daría un 502 esporádico (malo para p95 y Black Friday).
+servidor.keepAliveTimeout = 620_000;
+servidor.headersTimeout = 630_000;
 servidor.listen(PORT, () => {
   console.log(JSON.stringify({ severity: 'INFO', message: `Tienda escuchando en ${servidor.address().port}` }));
 });

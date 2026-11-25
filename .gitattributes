@@ -1,3 +1,5 @@
 # Saltos de línea: los scripts de shell siempre en LF (si no, fallan en bash)
 * text=auto
 *.sh text eol=lf
+# Datos del reto tal cual los envían los proveedores (no normalizar bytes ni saltos de línea)
+tienda/datos/** -text
