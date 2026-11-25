@@ -1,12 +1,12 @@
 #!/usr/bin/env bash
-# Despliega la tienda oficial (picasso-team) con la configuración buena y la comprueba.
+# Despliega la tienda oficial (tienda-antonio, la URL guardada en el portal) con la configuración buena y la comprueba.
 #   bash tienda/scripts/desplegar.sh            despliega desde main (lo normal)
 #   bash tienda/scripts/desplegar.sh --forzar   despliega aunque no estés en main o haya cambios sin commit
 # Pasos: prueba local → gcloud run deploy → comprobación de la URL → medición como el hito → errores en logs.
 # Antes de desplegar, mirad en el portal que no haya ninguna prueba en marcha.
 set -uo pipefail
 
-SERVICIO="picasso-team"
+SERVICIO="tienda-antonio"
 PROYECTO="hackathon-devoteam"
 REGION="europe-southwest1"
 DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"

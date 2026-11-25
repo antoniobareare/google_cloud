@@ -3,7 +3,7 @@
 # Nota completa: mediana <= 0,2 s y p95 <= 0,5 s (cero con >= 1 s y >= 2 s).
 # Uso: bash tienda/scripts/medir_portada.sh [URL]
 set -euo pipefail
-URL="${1:-https://picasso-team-643279844872.europe-southwest1.run.app/}"
+URL="${1:-https://tienda-antonio-643279844872.europe-southwest1.run.app/}"
 stats() { sort -n | awk '{t[NR]=$1} END{printf "mediana=%.3f s  p95=%.3f s  máx=%.3f s\n",(t[10]+t[11])/2,t[19],t[20]}'; }
 
 echo "URL: $URL"

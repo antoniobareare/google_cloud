@@ -1,4 +1,5 @@
 *{box-sizing:border-box}
+[hidden]{display:none!important}
 html{-webkit-text-size-adjust:100%}
 body{margin:0;font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;color:#1d1d1f;background:#fafaf7;line-height:1.5;overflow-wrap:anywhere}
 a{color:#0b5cad}
@@ -11,11 +12,18 @@ h1{font-size:1.6rem;margin:8px 0 16px}
 img{max-width:100%;height:auto}
 .rejilla{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:16px}
 .tarjeta{background:#fff;border:1px solid #e5e5e0;border-radius:10px;padding:14px;display:flex;flex-direction:column;gap:8px}
+.tarjeta h2,.tarjeta p{margin:0}
+.tarjeta h2{font-size:1.1rem}
+.filtros{display:flex;flex-wrap:wrap;gap:12px;margin-bottom:20px}
+.filtros label{display:grid;gap:4px}
 .precio{font-size:1.2rem;font-weight:800}
 button,.boton{background:#0b5cad;color:#fff;border:0;border-radius:8px;padding:10px 16px;font-size:1rem;font-weight:700;cursor:pointer;text-decoration:none;display:inline-block}
 input,select,textarea{font:inherit;padding:8px;border:1px solid #bbb;border-radius:6px;max-width:100%}
 label{font-weight:600}
 form.campos{display:grid;gap:10px;max-width:520px}
+.lineas-carrito{list-style:none;padding:0}
+.lineas-carrito li{display:flex;flex-wrap:wrap;align-items:center;gap:12px;padding:12px 0;border-bottom:1px solid #e5e5e0}
+.lineas-carrito input{width:5em}
 table{width:100%;border-collapse:collapse}
 td,th{padding:8px;border-bottom:1px solid #e5e5e0;text-align:left}
 @media (max-width:480px){.cab nav a{margin-left:0;margin-right:12px}h1{font-size:1.35rem}}

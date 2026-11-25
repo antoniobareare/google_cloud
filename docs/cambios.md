@@ -21,3 +21,10 @@ Qué se ha creado o cambiado, por qué, quién y cómo revertirlo (para poder li
 | 2026-11-25 | Cloud Run `tienda-antonio` en `hackathon-devoteam` (europe-southwest1, pública, labels owner=antonio,app=hackathon, min 0 / max 5). Crea también el repo de Artifact Registry `cloud-run-source-deploy` | Tienda del reto (prueba de Antonio) | Claude (pedido por Antonio) | Antonio a mano: `gcloud run services delete tienda-antonio --region europe-southwest1` |
 | 2026-11-25 | Cloud Run `picasso-team` en `hackathon-devoteam` (europe-southwest1, pública, labels owner=antonio,app=hackathon, min 0 / max 5). Sustituye a `tienda-antonio` (nombre pedido por Antonio) | Tienda del equipo | Claude (pedido por Antonio) | Antonio a mano: `gcloud run services delete picasso-team --region europe-southwest1` |
 | 2026-11-25 | `picasso-team`: `--min-instances 1` (revisión 00002) | Hito "Tiempo de respuesta": sin arranque en frío en la portada (céntimos/hora) | Claude (pedido por Antonio) | Al acabar el evento: `gcloud run services update picasso-team --region europe-southwest1 --min-instances 0` |
+
+## Cambios en la aplicación
+
+| Fecha | Qué | Por qué | Quién | Cómo revertir |
+|---|---|---|---|---|
+| 2026-11-25 | Portada y fichas generadas desde el catálogo, carrito y envío de pedidos v1.0 en `miguel` | Preparar el recorrido de compra y el hito Presente | Codex (pedido por Miguel) | Revertir el cambio de la aplicación en la rama `miguel` |
+| 2026-11-25 | `tienda-antonio` (la URL del portal) redesplegada con el código bueno (c8ffc5e: catálogo + asistente), min-instances 1 y variables de Gemini. `desplegar.sh` pasa a desplegar `tienda-antonio` | El portal tiene guardada esa URL; el evaluador nunca llamó a picasso-team | Claude (pedido por Antonio) | Al acabar: `--min-instances 0`. `picasso-team` queda de pruebas (también con min 1: bajar a 0 o borrar) |
