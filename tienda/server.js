@@ -62,6 +62,12 @@ const bloqueMejoras = (p) => {
     </li>`).join('')}</ul>
   </section>` : '';
 };
+// Pack "Completa tu casa": lo rellena public/tienda.js con lo que lleve el carrito, hasta acercarse a 4.000 €
+const BLOQUE_PACK = `<section class="vc oferta" id="pack-casa" hidden aria-label="Completa tu casa">
+    <h2>Completa tu casa antes de pagar</h2>
+    <p id="pack-texto"></p>
+    <button type="button" id="pack-boton">Añadir el pack Completa tu casa</button>
+  </section>`;
 const BLOQUE_COMPLEMENTOS = COMPLEMENTOS.length ? `
   <section class="vc" aria-label="Completa tu casa">
     <h2>Antes de pagar: completa tu casa</h2>
@@ -121,7 +127,8 @@ const ESTATICOS = {
       descripcion: 'Tienda online de muebles, iluminación, textil y decoración. Compra como invitado y recibe tu pedido en casa.',
       h1: 'Muebles y decoración para tu casa',
       // En la portada, dentro de cada categoría, primero lo de más calidad (mayor precio)
-      cuerpo: BANNER_OFERTAS + CONJUNTOS.bloqueInicio() + portada([...productos].sort((a, b) =>
+      // Portada ligera (como en la prueba 2 del agente, que compró en 3 min): productos arriba, sin bloques largos
+      cuerpo: portada([...productos].sort((a, b) =>
         (a.categoria === b.categoria ? 0 : productos.findIndex((p) => p.categoria === a.categoria) - productos.findIndex((p) => p.categoria === b.categoria)) || b.precio - a.precio)),
     }),
     'text/html; charset=utf-8'
@@ -130,7 +137,7 @@ const ESTATICOS = {
     titulo: 'Tu carrito de compra · Casa Devoteam',
     descripcion: 'Revisa tus muebles y completa tu pedido como invitado en Casa Devoteam.',
     h1: 'Tu carrito de compra',
-    cuerpo: carrito + BLOQUE_COMPLEMENTOS,
+    cuerpo: BLOQUE_PACK + carrito + BLOQUE_COMPLEMENTOS,
   }), 'text/html; charset=utf-8'),
   '/catalogo.json': preparar(JSON.stringify({ productos }), 'application/json; charset=utf-8'),
   '/estilos.css': preparar(leer('public/estilos.css'), 'text/css; charset=utf-8'),
@@ -144,7 +151,7 @@ const FICHAS = new Map(productos.map((producto) => [rutaProducto(producto.sku), 
   titulo: `${producto.nombre} · Casa Devoteam`,
   descripcion: `Consulta el precio y las características de ${producto.nombre} en Casa Devoteam.`,
   h1: producto.nombre,
-  cuerpo: ficha(producto) + BANNER_OFERTAS + bloqueMejoras(producto) + CONJUNTOS.bloqueFicha(producto.sku) + VENTA_CRUZADA.bloqueFicha(producto.sku),
+  cuerpo: ficha(producto) + VENTA_CRUZADA.bloqueFicha(producto.sku),
 }), 'text/html; charset=utf-8')]));
 
 const PAGINA_404 = preparar(

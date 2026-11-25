@@ -95,6 +95,39 @@ async function mostrarCarrito(formulario) {
         : t >= 500 ? `Envío gratis conseguido. Te faltan ${euros.format(1500 - t)} para el montaje a domicilio gratis (ahorras 39 €).`
         : `Te faltan ${euros.format(500 - t)} para el envío gratis (ahorras 49 €) y ${euros.format(1500 - t)} para el montaje gratis.`;
     }
+    // Pack "Completa tu casa": iluminación, textil y almacenaje que no lleva, hasta acercar el pedido a 4.000 €
+    const pack = document.querySelector('#pack-casa');
+    if (pack) {
+      const ya = new Set(items.map((i) => i.sku));
+      const CANDIDATOS = ['lampara-de-pie-arco', 'alfombra-de-salon-160x230', 'aparador-3-puertas', 'armario-2-puertas-correderas',
+        'estanteria-libreria-5-baldas', 'lampara-de-techo-trenzada', 'mesilla-de-noche-1-cajon', 'lampara-de-mesilla-ceramica',
+        'funda-nordica-150-todo-el-ano', 'pack-2-almohadas-viscoelasticas', 'juego-de-sabanas-150', 'protector-de-colchon-impermeable-150',
+        'pack-4-cojines-decorativos', 'manta-para-sofa', 'cajonera-con-ruedas-3-cajones', 'flexo-led-regulable',
+        'pack-4-sillas-de-comedor-roble', 'pack-4-sillas-de-comedor-arena', 'sillon-viena-1-plaza', 'pack-2-sillas-industrial',
+        'soporte-de-monitor-de-madera', 'alfombrilla-protectora-para-silla', 'reposapies-ergonomico'];
+      let suma = centimos; const elegidos = [];
+      for (const sku of CANDIDATOS) {
+        const p = catalogo.get(sku);
+        if (!p || ya.has(sku)) continue;
+        const c = Math.round(p.precio * 100);
+        if (suma + c <= 399000) { suma += c; elegidos.push(p); }
+      }
+      if (centimos > 0 && elegidos.length >= 2) {
+        const extra = (suma - centimos) / 100;
+        document.querySelector('#pack-texto').textContent =
+          `Recomendado para tu casa nueva: ${elegidos.map((p) => p.nombre).join(', ')}. ` +
+          `Son ${euros.format(extra)} más y tu pedido queda en ${euros.format(suma / 100)}, con envío y montaje a domicilio gratis.`;
+        const boton = document.querySelector('#pack-boton');
+        boton.textContent = `Añadir el pack Completa tu casa (${elegidos.length} productos, ${euros.format(extra)})`;
+        boton.onclick = () => {
+          const lista = leerCarrito();
+          for (const p of elegidos) if (!lista.some((i) => i.sku === p.sku)) lista.push({ sku: p.sku, quantity: 1 });
+          guardarCarrito(lista);
+          location.reload();
+        };
+        pack.hidden = false;
+      } else pack.hidden = true;
+    }
   };
 
   const disponibles = items.filter((item) => catalogo.has(item.sku));

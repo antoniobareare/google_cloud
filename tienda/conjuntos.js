@@ -20,7 +20,7 @@ const DEFINICION = [
   {
     id: 'hogar-completo', nombre: 'Hogar completo: salón de piel y dormitorio',
     texto: 'La opción más completa: salón de piel con sillón y todos sus complementos, más dormitorio de 150 con colchón premium y ropa de cama. Envío y montaje a domicilio gratis.',
-    lineas: [[['A-6902', 'B-93141'], 1], [['A-1893'], 1], [['B-13338'], 1], [['A-4533'], 1], [['B-21741', 'A-5053'], 1], [['A-9000'], 1],
+    lineas: [[['A-6902', 'B-93141'], 1], [['A-1893'], 1], [['B-13338'], 2], [['A-4533'], 2], [['B-21741', 'A-5053'], 1], [['A-9000'], 2],
       [['B-36878'], 1], [['B-98516'], 1], [['A-5051'], 1], [['A-3115'], 1], [['B-39342'], 1], [['B-22857'], 1],
       [['B-23736'], 2], [['B-30739', 'A-5441'], 2], [['B-40144'], 1], [['A-9295'], 1]],
   },
