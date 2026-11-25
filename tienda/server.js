@@ -7,6 +7,10 @@ import { randomBytes } from 'node:crypto';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { responder, calentar } from './asistente.js';
+import { manejarCompra } from './carrito.js';
+import { crearEscaparate, rutaProducto } from './escaparate.js';
+import { crearConjuntos } from './conjuntos.js';
+import { crearVentaCruzada } from './ventacruzada.js';
 
 const DIR = path.dirname(fileURLToPath(import.meta.url));
 const PORT = Number(process.env.PORT) || 8080;
@@ -26,8 +30,18 @@ const SEGURIDAD = {
 const leer = (f, def = '') => (existsSync(path.join(DIR, f)) ? readFileSync(path.join(DIR, f), 'utf8') : def);
 const CATALOGO_TXT = leer('catalogo.json', '[]');
 
+const lista = (txt) => { try { const j = JSON.parse(txt); return Array.isArray(j) ? j : (j.productos ?? []); } catch { return []; } };
+const PRODUCTOS = lista(CATALOGO_TXT);
+
 // ---------- Utilidades ----------
 const esc = (s) => String(s ?? '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+
+// ---------- Escaparate, conjuntos y venta cruzada (precalculados al arrancar) ----------
+const conjuntos = crearConjuntos(PRODUCTOS);
+const ventaCruzada = crearVentaCruzada(PRODUCTOS);
+const escaparate = crearEscaparate({
+  productos: PRODUCTOS, detalle: lista(leer('catalogo_detalle.json', '[]')), esc, conjuntos, ventaCruzada,
+});
 
 function pagina({ titulo, descripcion, h1, cuerpo }) {
   return `<!doctype html>
@@ -73,7 +87,7 @@ const ESTATICOS = {
       titulo: 'Casa Devoteam · Muebles y decoración online',
       descripcion: 'Tienda online de muebles, iluminación, textil y decoración. Compra como invitado y recibe tu pedido en casa.',
       h1: 'Muebles y decoración para tu casa',
-      cuerpo: '<p>Estamos preparando el catálogo. Vuelve en unos minutos.</p>',
+      cuerpo: escaparate.portada,
     }),
     'text/html; charset=utf-8'
   ),
@@ -83,6 +97,14 @@ const ESTATICOS = {
   '/favicon.ico': preparar(leer('public/favicon.svg'), 'image/svg+xml'),
   '/robots.txt': preparar('User-agent: *\nAllow: /\n', 'text/plain; charset=utf-8'),
 };
+
+// Fichas de producto, precalculadas y comprimidas como la portada
+const FICHAS = new Map(PRODUCTOS.map((p) => [rutaProducto(p.sku), preparar(pagina({
+  titulo: `${p.nombre} · Casa Devoteam`,
+  descripcion: `${p.nombre}: precio, medidas y materiales. Compra como invitado en Casa Devoteam con pago simulado.`,
+  h1: p.nombre,
+  cuerpo: escaparate.ficha(p),
+}), 'text/html; charset=utf-8')]));
 
 const PAGINA_404 = preparar(
   pagina({ titulo: 'Página no encontrada · Casa Devoteam', descripcion: 'La página que buscas no existe en Casa Devoteam.', h1: 'Página no encontrada', cuerpo: '<p><a href="/">Volver a la tienda</a></p>' }),
@@ -96,10 +118,12 @@ const PAGINA_500 = preparar(
 // ---------- Envío ----------
 function enviar(req, res, estado, r, extra = {}) {
   const cab = { ...SEGURIDAD, 'content-type': r.tipo, 'cache-control': 'no-store', ...extra };
-  // Cookie de sesión: la primera vez que se visita cualquier página
+  // Cookies: las que pida la ruta (p. ej. hk_carrito) + hk_sesion la primera vez que se visita cualquier página
+  const cookies = [].concat(extra['set-cookie'] || []);
   if (!/(?:^|;\s*)hk_sesion=/.test(req.headers.cookie || '')) {
-    cab['set-cookie'] = `hk_sesion=${randomBytes(16).toString('hex')}; Path=/; Max-Age=86400; Secure; HttpOnly; SameSite=Lax`;
+    cookies.push(`hk_sesion=${randomBytes(16).toString('hex')}; Path=/; Max-Age=86400; Secure; HttpOnly; SameSite=Lax`);
   }
+  if (cookies.length) cab['set-cookie'] = cookies; else delete cab['set-cookie'];
   let cuerpo = r.raw;
   if (r.raw.length > 512 && (r.br || r.gz)) {
     const ae = req.headers['accept-encoding'] || '';
@@ -134,12 +158,23 @@ async function manejar(req, res) {
     const extra = ruta === '/' || ruta === '/catalogo.json' ? {} : { 'cache-control': 'public, max-age=3600' };
     return enviar(req, res, 200, ESTATICOS[ruta], extra);
   }
+  if ((req.method === 'GET' || req.method === 'HEAD') && FICHAS.has(ruta)) {
+    return enviar(req, res, 200, FICHAS.get(ruta));
+  }
 
   if (req.method === 'POST' && ruta === '/api/asistente') {
     let pregunta = '';
     try { pregunta = String(JSON.parse(await leerCuerpo(req)).pregunta || ''); } catch { /* cuerpo no válido */ }
     return json(req, res, 200, { respuesta: await responder(pregunta) });
   }
+
+  // Carrito, checkout y pedido al buzón (carrito.js, persona 4)
+  const ctx = {
+    enviar, pagina, esc, leerCuerpo,
+    html: (s) => ({ raw: Buffer.from(s), gz: null, br: null, tipo: 'text/html; charset=utf-8' }),
+    extraCarrito: (skus, total) => ventaCruzada.bloqueCarrito(skus, total),
+  };
+  if ((await manejarCompra(req, res, ruta, ctx)) !== false) return;
 
   return enviar(req, res, 404, PAGINA_404);
 }
