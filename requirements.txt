@@ -1,0 +1,7 @@
+# Python 3.11+. Instalar: uv venv --python 3.11 .venv && uv pip install -r requirements.txt
+google-adk==2.15.1
+google-cloud-aiplatform[agent_engines,adk]==2.10.0
+google-cloud-bigquery==3.47.0
+google-genai==2.34.0
+langgraph==1.2.24
+langchain-google-vertexai==3.3.0

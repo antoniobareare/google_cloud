@@ -1,0 +1,19 @@
+{
+  "mcpServers": {
+    "bigquery": {
+      "type": "http",
+      "url": "https://bigquery.googleapis.com/mcp",
+      "headersHelper": "bash ./scripts/gcp-mcp-headers.sh"
+    },
+    "logging": {
+      "type": "http",
+      "url": "https://logging.googleapis.com/mcp",
+      "headersHelper": "bash ./scripts/gcp-mcp-headers.sh"
+    },
+    "cloudrun": {
+      "type": "http",
+      "url": "https://run.googleapis.com/mcp",
+      "headersHelper": "bash ./scripts/gcp-mcp-headers.sh"
+    }
+  }
+}
