@@ -6,9 +6,11 @@ import { gzipSync } from 'node:zlib';
 import { randomBytes } from 'node:crypto';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { enviarPedido, ErrorPedido, prepararPedido } from './pedidos.js';
+import { carrito, esc, ficha, portada, rutaProducto } from './vistas.js';
 
 const DIR = path.dirname(fileURLToPath(import.meta.url));
-const PORT = Number(process.env.PORT) || 8080;
+const PORT = Number(process.env.PORT || 8080);
 
 // ---------- Cabeceras de seguridad (en TODAS las respuestas) ----------
 const SEGURIDAD = {
@@ -23,10 +25,15 @@ const SEGURIDAD = {
 
 // ---------- Datos ----------
 const leer = (f, def = '') => (existsSync(path.join(DIR, f)) ? readFileSync(path.join(DIR, f), 'utf8') : def);
-const CATALOGO_TXT = leer('catalogo.json', '[]');
-
-// ---------- Utilidades ----------
-const esc = (s) => String(s ?? '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+const catalogo = JSON.parse(leer('catalogo.json', '{"productos":[]}'));
+const listaCatalogo = Array.isArray(catalogo) ? catalogo : catalogo?.productos;
+if (!Array.isArray(listaCatalogo)) throw new Error('catalogo.json debe contener una lista de productos.');
+const productos = listaCatalogo.filter((producto) =>
+  typeof producto?.sku === 'string' && producto.sku.trim() &&
+  typeof producto.nombre === 'string' && producto.nombre.trim() &&
+  Number.isFinite(producto.precio) && producto.precio >= 0 &&
+  Number.isSafeInteger(Math.round(producto.precio * 100)));
+const PRODUCTOS = new Map(productos.map((producto) => [producto.sku, producto]));
 
 function pagina({ titulo, descripcion, h1, cuerpo }) {
   return `<!doctype html>
@@ -38,6 +45,7 @@ function pagina({ titulo, descripcion, h1, cuerpo }) {
 <meta name="description" content="${esc(descripcion)}">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="stylesheet" href="/estilos.css">
+<script src="/tienda.js" defer></script>
 </head>
 <body>
 <header class="cab">
@@ -48,7 +56,7 @@ function pagina({ titulo, descripcion, h1, cuerpo }) {
 <h1>${esc(h1)}</h1>
 ${cuerpo}
 </main>
-<footer class="pie"><p>Envíos a toda España · Pago simulado, sin datos bancarios · Compra como invitado</p></footer>
+<footer class="pie"><p>Envíos a la península y Baleares · Pago simulado · Compra como invitado</p></footer>
 </body>
 </html>`;
 }
@@ -65,16 +73,30 @@ const ESTATICOS = {
       titulo: 'Casa Devoteam · Muebles y decoración online',
       descripcion: 'Tienda online de muebles, iluminación, textil y decoración. Compra como invitado y recibe tu pedido en casa.',
       h1: 'Muebles y decoración para tu casa',
-      cuerpo: '<p>Estamos preparando el catálogo. Vuelve en unos minutos.</p>',
+      cuerpo: portada(productos),
     }),
     'text/html; charset=utf-8'
   ),
-  '/catalogo.json': preparar(CATALOGO_TXT, 'application/json; charset=utf-8'),
+  '/carrito': preparar(pagina({
+    titulo: 'Tu carrito de compra · Casa Devoteam',
+    descripcion: 'Revisa tus muebles y completa tu pedido como invitado en Casa Devoteam.',
+    h1: 'Tu carrito de compra',
+    cuerpo: carrito,
+  }), 'text/html; charset=utf-8'),
+  '/catalogo.json': preparar(JSON.stringify({ productos }), 'application/json; charset=utf-8'),
   '/estilos.css': preparar(leer('public/estilos.css'), 'text/css; charset=utf-8'),
+  '/tienda.js': preparar(leer('public/tienda.js'), 'text/javascript; charset=utf-8'),
   '/favicon.svg': preparar(leer('public/favicon.svg'), 'image/svg+xml'),
   '/favicon.ico': preparar(leer('public/favicon.svg'), 'image/svg+xml'),
   '/robots.txt': preparar('User-agent: *\nAllow: /\n', 'text/plain; charset=utf-8'),
 };
+
+const FICHAS = new Map(productos.map((producto) => [rutaProducto(producto.sku), preparar(pagina({
+  titulo: `${producto.nombre} · Casa Devoteam`,
+  descripcion: `Consulta el precio y las características de ${producto.nombre} en Casa Devoteam.`,
+  h1: producto.nombre,
+  cuerpo: ficha(producto),
+}), 'text/html; charset=utf-8')]));
 
 const PAGINA_404 = preparar(
   pagina({ titulo: 'Página no encontrada · Casa Devoteam', descripcion: 'La página que buscas no existe en Casa Devoteam.', h1: 'Página no encontrada', cuerpo: '<p><a href="/">Volver a la tienda</a></p>' }),
@@ -92,7 +114,7 @@ function enviar(req, res, estado, r, extra = {}) {
   if (!/(?:^|;\s*)hk_sesion=/.test(req.headers.cookie || '')) {
     cab['set-cookie'] = `hk_sesion=${randomBytes(16).toString('hex')}; Path=/; Max-Age=86400; Secure; HttpOnly; SameSite=Lax`;
   }
-  const gz = /\bgzip\b/.test(req.headers['accept-encoding'] || '') && r.raw.length > 512;
+  const gz = r.gz && /\bgzip\b/.test(req.headers['accept-encoding'] || '') && r.raw.length > 512;
   const cuerpo = gz ? r.gz : r.raw;
   if (gz) { cab['content-encoding'] = 'gzip'; cab['vary'] = 'Accept-Encoding'; }
   cab['content-length'] = cuerpo.length;
@@ -105,12 +127,39 @@ function json(req, res, estado, obj) {
 }
 
 function leerCuerpo(req, max = 64 * 1024) {
-  return new Promise((ok, ko) => {
-    let n = 0; const trozos = [];
-    req.on('data', (c) => { n += c.length; if (n > max) { ko(new Error('grande')); req.destroy(); } else trozos.push(c); });
-    req.on('end', () => ok(Buffer.concat(trozos).toString('utf8')));
-    req.on('error', ko);
+  return new Promise((resolve, reject) => {
+    let bytes = 0;
+    const trozos = [];
+    req.on('data', (trozo) => {
+      if (bytes > max) return;
+      bytes += trozo.length;
+      if (bytes > max) {
+        trozos.length = 0;
+        reject(new ErrorPedido(413, 'La petición supera el tamaño permitido.'));
+      } else {
+        trozos.push(trozo);
+      }
+    });
+    req.on('end', () => resolve(Buffer.concat(trozos).toString('utf8')));
+    req.on('error', reject);
   });
+}
+
+async function tramitarPedido(req, res) {
+  if (!/^application\/json(?:\s*;|$)/i.test(req.headers['content-type'] || '')) {
+    return json(req, res, 415, { error: 'El pedido debe estar en formato JSON.' });
+  }
+
+  try {
+    const datos = JSON.parse(await leerCuerpo(req));
+    const pedido = prepararPedido(datos, PRODUCTOS);
+    await enviarPedido(pedido);
+    return json(req, res, 201, { order_id: pedido.order_id });
+  } catch (error) {
+    if (error instanceof SyntaxError) return json(req, res, 400, { error: 'El JSON del pedido no es válido.' });
+    if (error instanceof ErrorPedido) return json(req, res, error.estado, { error: error.message });
+    throw error;
+  }
 }
 
 // ---------- Rutas ----------
@@ -118,10 +167,17 @@ async function manejar(req, res) {
   const url = new URL(req.url, 'http://x');
   const ruta = url.pathname;
 
-  if ((req.method === 'GET' || req.method === 'HEAD') && ESTATICOS[ruta]) {
-    const extra = ruta === '/' || ruta === '/catalogo.json' ? {} : { 'cache-control': 'public, max-age=3600' };
-    return enviar(req, res, 200, ESTATICOS[ruta], extra);
+  if (req.method === 'GET' || req.method === 'HEAD') {
+    if (Object.hasOwn(ESTATICOS, ruta)) {
+      const extra = ruta === '/estilos.css' || ruta === '/tienda.js' || ruta.startsWith('/favicon.')
+        ? { 'cache-control': 'public, max-age=300' } : {};
+      return enviar(req, res, 200, ESTATICOS[ruta], extra);
+    }
+    const producto = FICHAS.get(ruta);
+    if (producto) return enviar(req, res, 200, producto);
   }
+
+  if (req.method === 'POST' && ruta === '/api/pedidos') return tramitarPedido(req, res);
 
   if (req.method === 'POST' && ruta === '/api/asistente') {
     let pregunta = '';
@@ -141,4 +197,6 @@ const servidor = http.createServer((req, res) => {
   });
 });
 servidor.keepAliveTimeout = 65000;
-servidor.listen(PORT, () => console.log(JSON.stringify({ severity: 'INFO', message: `Tienda escuchando en ${PORT}` })));
+servidor.listen(PORT, () => {
+  console.log(JSON.stringify({ severity: 'INFO', message: `Tienda escuchando en ${servidor.address().port}` }));
+});

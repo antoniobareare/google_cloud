@@ -20,3 +20,9 @@ Qué se ha creado o cambiado, por qué, quién y cómo revertirlo (para poder li
 | 2026-11-25 | APIs habilitadas en `hackathon-devoteam`: run, cloudbuild, artifactregistry, secretmanager | Necesarias para publicar en Cloud Run | Claude | Sin coste por estar habilitadas |
 | 2026-11-25 | Cloud Run `tienda-antonio` en `hackathon-devoteam` (europe-southwest1, pública, labels owner=antonio,app=hackathon, min 0 / max 5). Crea también el repo de Artifact Registry `cloud-run-source-deploy` | Tienda del reto (prueba de Antonio) | Claude (pedido por Antonio) | Antonio a mano: `gcloud run services delete tienda-antonio --region europe-southwest1` |
 | 2026-11-25 | Cloud Run `picasso-team` en `hackathon-devoteam` (europe-southwest1, pública, labels owner=antonio,app=hackathon, min 0 / max 5). Sustituye a `tienda-antonio` (nombre pedido por Antonio) | Tienda del equipo | Claude (pedido por Antonio) | Antonio a mano: `gcloud run services delete picasso-team --region europe-southwest1` |
+
+## Cambios en la aplicación
+
+| Fecha | Qué | Por qué | Quién | Cómo revertir |
+|---|---|---|---|---|
+| 2026-11-25 | Portada y fichas generadas desde el catálogo, carrito y envío de pedidos v1.0 en `miguel` | Preparar el recorrido de compra y el hito Presente | Codex (pedido por Miguel) | Revertir el cambio de la aplicación en la rama `miguel` |

@@ -15,7 +15,7 @@
 -
 
 ## Frase de la demo
-"El usuario ___ pide ___, el agente consulta ___ y hace ___."
+El comprador busca muebles, el agente consulta el catálogo y la tienda envía al buzón el pedido confirmado tras el pago simulado.
 
 ## Datos del entorno
 - Proyecto GCP:
