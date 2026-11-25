@@ -1,0 +1,1946 @@
+{
+ "A-5784": [
+  {
+   "ids_origen": [
+    "B-67452"
+   ],
+   "nombre": "Soporte de monitor de madera",
+   "categoria": "accesorio",
+   "confianza": 0.5
+  },
+  {
+   "ids_origen": [
+    "B-50794"
+   ],
+   "nombre": "Reposapiés ergonómico",
+   "categoria": "accesorio",
+   "confianza": 0.3
+  },
+  {
+   "ids_origen": [
+    "B-85581"
+   ],
+   "nombre": "Flexo LED regulable",
+   "categoria": "iluminacion",
+   "confianza": 0.25
+  },
+  {
+   "ids_origen": [
+    "B-70916"
+   ],
+   "nombre": "Alfombrilla protectora para silla",
+   "categoria": "accesorio",
+   "confianza": 0.2
+  }
+ ],
+ "B-65328": [
+  {
+   "ids_origen": [
+    "B-67452"
+   ],
+   "nombre": "Soporte de monitor de madera",
+   "categoria": "accesorio",
+   "confianza": 0.5
+  },
+  {
+   "ids_origen": [
+    "B-70916"
+   ],
+   "nombre": "Alfombrilla protectora para silla",
+   "categoria": "accesorio",
+   "confianza": 0.35
+  },
+  {
+   "ids_origen": [
+    "B-85581"
+   ],
+   "nombre": "Flexo LED regulable",
+   "categoria": "iluminacion",
+   "confianza": 0.3
+  },
+  {
+   "ids_origen": [
+    "A-4350"
+   ],
+   "nombre": "CAJONERA CON RUEDAS 3 CAJONES",
+   "categoria": "almacenaje",
+   "confianza": 0.3
+  }
+ ],
+ "B-50794": [
+  {
+   "ids_origen": [
+    "B-67452"
+   ],
+   "nombre": "Soporte de monitor de madera",
+   "categoria": "accesorio",
+   "confianza": 0.4
+  },
+  {
+   "ids_origen": [
+    "B-70916"
+   ],
+   "nombre": "Alfombrilla protectora para silla",
+   "categoria": "accesorio",
+   "confianza": 0.36
+  },
+  {
+   "ids_origen": [
+    "B-85581"
+   ],
+   "nombre": "Flexo LED regulable",
+   "categoria": "iluminacion",
+   "confianza": 0.28
+  },
+  {
+   "ids_origen": [
+    "A-4350"
+   ],
+   "nombre": "CAJONERA CON RUEDAS 3 CAJONES",
+   "categoria": "almacenaje",
+   "confianza": 0.24
+  }
+ ],
+ "B-70916": [
+  {
+   "ids_origen": [
+    "B-50794"
+   ],
+   "nombre": "Reposapiés ergonómico",
+   "categoria": "accesorio",
+   "confianza": 0.35
+  },
+  {
+   "ids_origen": [
+    "B-67452"
+   ],
+   "nombre": "Soporte de monitor de madera",
+   "categoria": "accesorio",
+   "confianza": 0.31
+  },
+  {
+   "ids_origen": [
+    "B-85581"
+   ],
+   "nombre": "Flexo LED regulable",
+   "categoria": "iluminacion",
+   "confianza": 0.31
+  },
+  {
+   "ids_origen": [
+    "A-4350"
+   ],
+   "nombre": "CAJONERA CON RUEDAS 3 CAJONES",
+   "categoria": "almacenaje",
+   "confianza": 0.23
+  }
+ ],
+ "A-2229": [
+  {
+   "ids_origen": [
+    "A-4350"
+   ],
+   "nombre": "CAJONERA CON RUEDAS 3 CAJONES",
+   "categoria": "almacenaje",
+   "confianza": 0.33
+  },
+  {
+   "ids_origen": [
+    "B-67452"
+   ],
+   "nombre": "Soporte de monitor de madera",
+   "categoria": "accesorio",
+   "confianza": 0.28
+  },
+  {
+   "ids_origen": [
+    "B-50794"
+   ],
+   "nombre": "Reposapiés ergonómico",
+   "categoria": "accesorio",
+   "confianza": 0.28
+  },
+  {
+   "ids_origen": [
+    "B-85581"
+   ],
+   "nombre": "Flexo LED regulable",
+   "categoria": "iluminacion",
+   "confianza": 0.22
+  }
+ ],
+ "B-94536": [
+  {
+   "ids_origen": [
+    "A-4350"
+   ],
+   "nombre": "CAJONERA CON RUEDAS 3 CAJONES",
+   "categoria": "almacenaje",
+   "confianza": 0.33
+  },
+  {
+   "ids_origen": [
+    "B-67452"
+   ],
+   "nombre": "Soporte de monitor de madera",
+   "categoria": "accesorio",
+   "confianza": 0.28
+  },
+  {
+   "ids_origen": [
+    "B-50794"
+   ],
+   "nombre": "Reposapiés ergonómico",
+   "categoria": "accesorio",
+   "confianza": 0.28
+  },
+  {
+   "ids_origen": [
+    "B-85581"
+   ],
+   "nombre": "Flexo LED regulable",
+   "categoria": "iluminacion",
+   "confianza": 0.22
+  }
+ ],
+ "B-85581": [
+  {
+   "ids_origen": [
+    "B-67452"
+   ],
+   "nombre": "Soporte de monitor de madera",
+   "categoria": "accesorio",
+   "confianza": 0.41
+  },
+  {
+   "ids_origen": [
+    "B-70916"
+   ],
+   "nombre": "Alfombrilla protectora para silla",
+   "categoria": "accesorio",
+   "confianza": 0.3
+  },
+  {
+   "ids_origen": [
+    "B-50794"
+   ],
+   "nombre": "Reposapiés ergonómico",
+   "categoria": "accesorio",
+   "confianza": 0.26
+  },
+  {
+   "ids_origen": [
+    "A-4350"
+   ],
+   "nombre": "CAJONERA CON RUEDAS 3 CAJONES",
+   "categoria": "almacenaje",
+   "confianza": 0.22
+  }
+ ],
+ "A-8465": [
+  {
+   "ids_origen": [
+    "A-5441",
+    "B-30739"
+   ],
+   "nombre": "Lámpara de mesilla Cerámica",
+   "categoria": "iluminacion",
+   "confianza": 0.46
+  },
+  {
+   "ids_origen": [
+    "A-5051"
+   ],
+   "nombre": "FUNDA NÓRDICA 150 TODO EL AÑO",
+   "categoria": "textil",
+   "confianza": 0.38
+  },
+  {
+   "ids_origen": [
+    "B-23736"
+   ],
+   "nombre": "Mesilla de noche 1 cajón",
+   "categoria": "almacenaje",
+   "confianza": 0.33
+  },
+  {
+   "ids_origen": [
+    "A-3115"
+   ],
+   "nombre": "Pack 2 almohadas viscoelásticas",
+   "categoria": "textil",
+   "confianza": 0.29
+  }
+ ],
+ "B-82382": [
+  {
+   "ids_origen": [
+    "A-5441",
+    "B-30739"
+   ],
+   "nombre": "Lámpara de mesilla Cerámica",
+   "categoria": "iluminacion",
+   "confianza": 0.46
+  },
+  {
+   "ids_origen": [
+    "A-5051"
+   ],
+   "nombre": "FUNDA NÓRDICA 150 TODO EL AÑO",
+   "categoria": "textil",
+   "confianza": 0.38
+  },
+  {
+   "ids_origen": [
+    "B-23736"
+   ],
+   "nombre": "Mesilla de noche 1 cajón",
+   "categoria": "almacenaje",
+   "confianza": 0.33
+  },
+  {
+   "ids_origen": [
+    "A-3115"
+   ],
+   "nombre": "Pack 2 almohadas viscoelásticas",
+   "categoria": "textil",
+   "confianza": 0.29
+  }
+ ],
+ "B-22183": [
+  {
+   "ids_origen": [
+    "A-3115"
+   ],
+   "nombre": "Pack 2 almohadas viscoelásticas",
+   "categoria": "textil",
+   "confianza": 0.55
+  },
+  {
+   "ids_origen": [
+    "A-5051"
+   ],
+   "nombre": "FUNDA NÓRDICA 150 TODO EL AÑO",
+   "categoria": "textil",
+   "confianza": 0.45
+  },
+  {
+   "ids_origen": [
+    "A-5441",
+    "B-30739"
+   ],
+   "nombre": "Lámpara de mesilla Cerámica",
+   "categoria": "iluminacion",
+   "confianza": 0.4
+  },
+  {
+   "ids_origen": [
+    "B-23736"
+   ],
+   "nombre": "Mesilla de noche 1 cajón",
+   "categoria": "almacenaje",
+   "confianza": 0.4
+  }
+ ],
+ "A-3115": [
+  {
+   "ids_origen": [
+    "A-5441",
+    "B-30739"
+   ],
+   "nombre": "Lámpara de mesilla Cerámica",
+   "categoria": "iluminacion",
+   "confianza": 0.45
+  },
+  {
+   "ids_origen": [
+    "A-5051"
+   ],
+   "nombre": "FUNDA NÓRDICA 150 TODO EL AÑO",
+   "categoria": "textil",
+   "confianza": 0.42
+  },
+  {
+   "ids_origen": [
+    "B-22857"
+   ],
+   "nombre": "Juego de sábanas 150",
+   "categoria": "textil",
+   "confianza": 0.39
+  },
+  {
+   "ids_origen": [
+    "B-39342"
+   ],
+   "nombre": "Protector de colchón impermeable 150",
+   "categoria": "textil",
+   "confianza": 0.29
+  }
+ ],
+ "B-60749": [
+  {
+   "ids_origen": [
+    "B-50794"
+   ],
+   "nombre": "Reposapiés ergonómico",
+   "categoria": "accesorio",
+   "confianza": 0.4
+  },
+  {
+   "ids_origen": [
+    "B-67452"
+   ],
+   "nombre": "Soporte de monitor de madera",
+   "categoria": "accesorio",
+   "confianza": 0.35
+  },
+  {
+   "ids_origen": [
+    "B-85581"
+   ],
+   "nombre": "Flexo LED regulable",
+   "categoria": "iluminacion",
+   "confianza": 0.3
+  },
+  {
+   "ids_origen": [
+    "A-4350"
+   ],
+   "nombre": "CAJONERA CON RUEDAS 3 CAJONES",
+   "categoria": "almacenaje",
+   "confianza": 0.3
+  }
+ ],
+ "A-1116": [
+  {
+   "ids_origen": [
+    "B-13338"
+   ],
+   "nombre": "Lámpara de pie Arco",
+   "categoria": "iluminacion",
+   "confianza": 0.4
+  },
+  {
+   "ids_origen": [
+    "A-4533"
+   ],
+   "nombre": "Alfombra de salón 160x230",
+   "categoria": "textil",
+   "confianza": 0.27
+  },
+  {
+   "ids_origen": [
+    "A-5053",
+    "B-21741"
+   ],
+   "nombre": "Pack 4 cojines decorativos",
+   "categoria": "textil",
+   "confianza": 0.27
+  },
+  {
+   "ids_origen": [
+    "A-9000"
+   ],
+   "nombre": "Manta para sofá",
+   "categoria": "textil",
+   "confianza": 0.27
+  }
+ ],
+ "B-65337": [
+  {
+   "ids_origen": [
+    "B-13338"
+   ],
+   "nombre": "Lámpara de pie Arco",
+   "categoria": "iluminacion",
+   "confianza": 0.4
+  },
+  {
+   "ids_origen": [
+    "A-4533"
+   ],
+   "nombre": "Alfombra de salón 160x230",
+   "categoria": "textil",
+   "confianza": 0.27
+  },
+  {
+   "ids_origen": [
+    "A-5053",
+    "B-21741"
+   ],
+   "nombre": "Pack 4 cojines decorativos",
+   "categoria": "textil",
+   "confianza": 0.27
+  },
+  {
+   "ids_origen": [
+    "A-9000"
+   ],
+   "nombre": "Manta para sofá",
+   "categoria": "textil",
+   "confianza": 0.27
+  }
+ ],
+ "B-67452": [
+  {
+   "ids_origen": [
+    "B-85581"
+   ],
+   "nombre": "Flexo LED regulable",
+   "categoria": "iluminacion",
+   "confianza": 0.37
+  },
+  {
+   "ids_origen": [
+    "B-50794"
+   ],
+   "nombre": "Reposapiés ergonómico",
+   "categoria": "accesorio",
+   "confianza": 0.33
+  },
+  {
+   "ids_origen": [
+    "B-70916"
+   ],
+   "nombre": "Alfombrilla protectora para silla",
+   "categoria": "accesorio",
+   "confianza": 0.27
+  },
+  {
+   "ids_origen": [
+    "A-4350"
+   ],
+   "nombre": "CAJONERA CON RUEDAS 3 CAJONES",
+   "categoria": "almacenaje",
+   "confianza": 0.13
+  }
+ ],
+ "B-36878": [
+  {
+   "ids_origen": [
+    "B-23736"
+   ],
+   "nombre": "Mesilla de noche 1 cajón",
+   "categoria": "almacenaje",
+   "confianza": 0.47
+  },
+  {
+   "ids_origen": [
+    "B-39342"
+   ],
+   "nombre": "Protector de colchón impermeable 150",
+   "categoria": "textil",
+   "confianza": 0.35
+  },
+  {
+   "ids_origen": [
+    "A-5051"
+   ],
+   "nombre": "FUNDA NÓRDICA 150 TODO EL AÑO",
+   "categoria": "textil",
+   "confianza": 0.35
+  },
+  {
+   "ids_origen": [
+    "A-3115"
+   ],
+   "nombre": "Pack 2 almohadas viscoelásticas",
+   "categoria": "textil",
+   "confianza": 0.24
+  }
+ ],
+ "A-9287": [
+  {
+   "ids_origen": [
+    "B-23736"
+   ],
+   "nombre": "Mesilla de noche 1 cajón",
+   "categoria": "almacenaje",
+   "confianza": 0.47
+  },
+  {
+   "ids_origen": [
+    "A-5441",
+    "B-30739"
+   ],
+   "nombre": "Lámpara de mesilla Cerámica",
+   "categoria": "iluminacion",
+   "confianza": 0.47
+  },
+  {
+   "ids_origen": [
+    "B-22857"
+   ],
+   "nombre": "Juego de sábanas 150",
+   "categoria": "textil",
+   "confianza": 0.4
+  },
+  {
+   "ids_origen": [
+    "B-39342"
+   ],
+   "nombre": "Protector de colchón impermeable 150",
+   "categoria": "textil",
+   "confianza": 0.33
+  }
+ ],
+ "B-39342": [
+  {
+   "ids_origen": [
+    "A-5051"
+   ],
+   "nombre": "FUNDA NÓRDICA 150 TODO EL AÑO",
+   "categoria": "textil",
+   "confianza": 0.5
+  },
+  {
+   "ids_origen": [
+    "B-23736"
+   ],
+   "nombre": "Mesilla de noche 1 cajón",
+   "categoria": "almacenaje",
+   "confianza": 0.38
+  },
+  {
+   "ids_origen": [
+    "A-3115"
+   ],
+   "nombre": "Pack 2 almohadas viscoelásticas",
+   "categoria": "textil",
+   "confianza": 0.35
+  },
+  {
+   "ids_origen": [
+    "A-5441",
+    "B-30739"
+   ],
+   "nombre": "Lámpara de mesilla Cerámica",
+   "categoria": "iluminacion",
+   "confianza": 0.35
+  }
+ ],
+ "A-5051": [
+  {
+   "ids_origen": [
+    "B-23736"
+   ],
+   "nombre": "Mesilla de noche 1 cajón",
+   "categoria": "almacenaje",
+   "confianza": 0.46
+  },
+  {
+   "ids_origen": [
+    "B-39342"
+   ],
+   "nombre": "Protector de colchón impermeable 150",
+   "categoria": "textil",
+   "confianza": 0.35
+  },
+  {
+   "ids_origen": [
+    "A-3115"
+   ],
+   "nombre": "Pack 2 almohadas viscoelásticas",
+   "categoria": "textil",
+   "confianza": 0.35
+  },
+  {
+   "ids_origen": [
+    "A-5441",
+    "B-30739"
+   ],
+   "nombre": "Lámpara de mesilla Cerámica",
+   "categoria": "iluminacion",
+   "confianza": 0.32
+  }
+ ],
+ "B-23736": [
+  {
+   "ids_origen": [
+    "A-5051"
+   ],
+   "nombre": "FUNDA NÓRDICA 150 TODO EL AÑO",
+   "categoria": "textil",
+   "confianza": 0.53
+  },
+  {
+   "ids_origen": [
+    "B-39342"
+   ],
+   "nombre": "Protector de colchón impermeable 150",
+   "categoria": "textil",
+   "confianza": 0.31
+  },
+  {
+   "ids_origen": [
+    "A-5441",
+    "B-30739"
+   ],
+   "nombre": "Lámpara de mesilla Cerámica",
+   "categoria": "iluminacion",
+   "confianza": 0.28
+  },
+  {
+   "ids_origen": [
+    "B-22857"
+   ],
+   "nombre": "Juego de sábanas 150",
+   "categoria": "textil",
+   "confianza": 0.28
+  }
+ ],
+ "A-1369": [
+  {
+   "ids_origen": [
+    "A-5051"
+   ],
+   "nombre": "FUNDA NÓRDICA 150 TODO EL AÑO",
+   "categoria": "textil",
+   "confianza": 0.52
+  },
+  {
+   "ids_origen": [
+    "A-3115"
+   ],
+   "nombre": "Pack 2 almohadas viscoelásticas",
+   "categoria": "textil",
+   "confianza": 0.44
+  },
+  {
+   "ids_origen": [
+    "B-39342"
+   ],
+   "nombre": "Protector de colchón impermeable 150",
+   "categoria": "textil",
+   "confianza": 0.28
+  },
+  {
+   "ids_origen": [
+    "A-5441",
+    "B-30739"
+   ],
+   "nombre": "Lámpara de mesilla Cerámica",
+   "categoria": "iluminacion",
+   "confianza": 0.28
+  }
+ ],
+ "B-98516": [
+  {
+   "ids_origen": [
+    "A-5051"
+   ],
+   "nombre": "FUNDA NÓRDICA 150 TODO EL AÑO",
+   "categoria": "textil",
+   "confianza": 0.39
+  },
+  {
+   "ids_origen": [
+    "B-39342"
+   ],
+   "nombre": "Protector de colchón impermeable 150",
+   "categoria": "textil",
+   "confianza": 0.3
+  },
+  {
+   "ids_origen": [
+    "A-5441",
+    "B-30739"
+   ],
+   "nombre": "Lámpara de mesilla Cerámica",
+   "categoria": "iluminacion",
+   "confianza": 0.3
+  },
+  {
+   "ids_origen": [
+    "A-3115"
+   ],
+   "nombre": "Pack 2 almohadas viscoelásticas",
+   "categoria": "textil",
+   "confianza": 0.26
+  }
+ ],
+ "A-2964": [
+  {
+   "ids_origen": [
+    "A-9295"
+   ],
+   "nombre": "Lámpara de techo Trenzada",
+   "categoria": "iluminacion",
+   "confianza": 0.44
+  },
+  {
+   "ids_origen": [
+    "A-3551"
+   ],
+   "nombre": "APARADOR 3 PUERTAS",
+   "categoria": "almacenaje",
+   "confianza": 0.4
+  },
+  {
+   "ids_origen": [
+    "A-4533"
+   ],
+   "nombre": "Alfombra de salón 160x230",
+   "categoria": "textil",
+   "confianza": 0.36
+  },
+  {
+   "ids_origen": [
+    "A-9750",
+    "B-90466"
+   ],
+   "nombre": "Pack 6 sillas de comedor Nogal",
+   "categoria": "silla",
+   "confianza": 0.32
+  }
+ ],
+ "B-52063": [
+  {
+   "ids_origen": [
+    "A-9295"
+   ],
+   "nombre": "Lámpara de techo Trenzada",
+   "categoria": "iluminacion",
+   "confianza": 0.44
+  },
+  {
+   "ids_origen": [
+    "A-3551"
+   ],
+   "nombre": "APARADOR 3 PUERTAS",
+   "categoria": "almacenaje",
+   "confianza": 0.4
+  },
+  {
+   "ids_origen": [
+    "A-4533"
+   ],
+   "nombre": "Alfombra de salón 160x230",
+   "categoria": "textil",
+   "confianza": 0.36
+  },
+  {
+   "ids_origen": [
+    "A-9750",
+    "B-90466"
+   ],
+   "nombre": "Pack 6 sillas de comedor Nogal",
+   "categoria": "silla",
+   "confianza": 0.32
+  }
+ ],
+ "A-4533": [
+  {
+   "ids_origen": [
+    "A-9295"
+   ],
+   "nombre": "Lámpara de techo Trenzada",
+   "categoria": "iluminacion",
+   "confianza": 0.31
+  },
+  {
+   "ids_origen": [
+    "B-13338"
+   ],
+   "nombre": "Lámpara de pie Arco",
+   "categoria": "iluminacion",
+   "confianza": 0.2
+  },
+  {
+   "ids_origen": [
+    "A-3551"
+   ],
+   "nombre": "APARADOR 3 PUERTAS",
+   "categoria": "almacenaje",
+   "confianza": 0.2
+  },
+  {
+   "ids_origen": [
+    "A-5805"
+   ],
+   "nombre": "MESA DE COMEDOR TAJO",
+   "categoria": "mesa",
+   "confianza": 0.24
+  }
+ ],
+ "A-2368": [
+  {
+   "ids_origen": [
+    "B-50794"
+   ],
+   "nombre": "Reposapiés ergonómico",
+   "categoria": "accesorio",
+   "confianza": 0.35
+  },
+  {
+   "ids_origen": [
+    "B-85581"
+   ],
+   "nombre": "Flexo LED regulable",
+   "categoria": "iluminacion",
+   "confianza": 0.35
+  },
+  {
+   "ids_origen": [
+    "A-4350"
+   ],
+   "nombre": "CAJONERA CON RUEDAS 3 CAJONES",
+   "categoria": "almacenaje",
+   "confianza": 0.31
+  },
+  {
+   "ids_origen": [
+    "B-67452"
+   ],
+   "nombre": "Soporte de monitor de madera",
+   "categoria": "accesorio",
+   "confianza": 0.23
+  }
+ ],
+ "B-52757": [
+  {
+   "ids_origen": [
+    "A-4533"
+   ],
+   "nombre": "Alfombra de salón 160x230",
+   "categoria": "textil",
+   "confianza": 0.36
+  },
+  {
+   "ids_origen": [
+    "A-5053",
+    "B-21741"
+   ],
+   "nombre": "Pack 4 cojines decorativos",
+   "categoria": "textil",
+   "confianza": 0.21
+  },
+  {
+   "ids_origen": [
+    "B-13338"
+   ],
+   "nombre": "Lámpara de pie Arco",
+   "categoria": "iluminacion",
+   "confianza": 0.21
+  },
+  {
+   "ids_origen": [
+    "A-9000"
+   ],
+   "nombre": "Manta para sofá",
+   "categoria": "textil",
+   "confianza": 0.14
+  }
+ ],
+ "A-9000": [
+  {
+   "ids_origen": [
+    "B-13338"
+   ],
+   "nombre": "Lámpara de pie Arco",
+   "categoria": "iluminacion",
+   "confianza": 0.24
+  },
+  {
+   "ids_origen": [
+    "A-6902",
+    "B-93141"
+   ],
+   "nombre": "SOFÁ AARHUS 3 PLAZAS",
+   "categoria": "sofa",
+   "confianza": 0.19
+  },
+  {
+   "ids_origen": [
+    "A-1116",
+    "B-65337"
+   ],
+   "nombre": "SOFÁ NÓRDICO 3 PLAZAS",
+   "categoria": "sofa",
+   "confianza": 0.19
+  },
+  {
+   "ids_origen": [
+    "B-57515"
+   ],
+   "nombre": "Sofá cama Turku",
+   "categoria": "sofa",
+   "confianza": 0.19
+  }
+ ],
+ "A-7254": [
+  {
+   "ids_origen": [
+    "A-5051"
+   ],
+   "nombre": "FUNDA NÓRDICA 150 TODO EL AÑO",
+   "categoria": "textil",
+   "confianza": 0.35
+  },
+  {
+   "ids_origen": [
+    "B-39342"
+   ],
+   "nombre": "Protector de colchón impermeable 150",
+   "categoria": "textil",
+   "confianza": 0.29
+  },
+  {
+   "ids_origen": [
+    "B-23736"
+   ],
+   "nombre": "Mesilla de noche 1 cajón",
+   "categoria": "almacenaje",
+   "confianza": 0.29
+  },
+  {
+   "ids_origen": [
+    "B-22857"
+   ],
+   "nombre": "Juego de sábanas 150",
+   "categoria": "textil",
+   "confianza": 0.29
+  }
+ ],
+ "B-57515": [
+  {
+   "ids_origen": [
+    "B-13338"
+   ],
+   "nombre": "Lámpara de pie Arco",
+   "categoria": "iluminacion",
+   "confianza": 0.38
+  },
+  {
+   "ids_origen": [
+    "A-4533"
+   ],
+   "nombre": "Alfombra de salón 160x230",
+   "categoria": "textil",
+   "confianza": 0.25
+  },
+  {
+   "ids_origen": [
+    "A-9000"
+   ],
+   "nombre": "Manta para sofá",
+   "categoria": "textil",
+   "confianza": 0.25
+  },
+  {
+   "ids_origen": [
+    "A-5053",
+    "B-21741"
+   ],
+   "nombre": "Pack 4 cojines decorativos",
+   "categoria": "textil",
+   "confianza": 0.13
+  }
+ ],
+ "B-13338": [
+  {
+   "ids_origen": [
+    "A-4533"
+   ],
+   "nombre": "Alfombra de salón 160x230",
+   "categoria": "textil",
+   "confianza": 0.34
+  },
+  {
+   "ids_origen": [
+    "A-5053",
+    "B-21741"
+   ],
+   "nombre": "Pack 4 cojines decorativos",
+   "categoria": "textil",
+   "confianza": 0.31
+  },
+  {
+   "ids_origen": [
+    "A-9000"
+   ],
+   "nombre": "Manta para sofá",
+   "categoria": "textil",
+   "confianza": 0.17
+  },
+  {
+   "ids_origen": [
+    "A-6902",
+    "B-93141"
+   ],
+   "nombre": "SOFÁ AARHUS 3 PLAZAS",
+   "categoria": "sofa",
+   "confianza": 0.31
+  }
+ ],
+ "A-3028": [
+  {
+   "ids_origen": [
+    "B-85581"
+   ],
+   "nombre": "Flexo LED regulable",
+   "categoria": "iluminacion",
+   "confianza": 0.41
+  },
+  {
+   "ids_origen": [
+    "B-70916"
+   ],
+   "nombre": "Alfombrilla protectora para silla",
+   "categoria": "accesorio",
+   "confianza": 0.31
+  },
+  {
+   "ids_origen": [
+    "B-50794"
+   ],
+   "nombre": "Reposapiés ergonómico",
+   "categoria": "accesorio",
+   "confianza": 0.28
+  },
+  {
+   "ids_origen": [
+    "A-4350"
+   ],
+   "nombre": "CAJONERA CON RUEDAS 3 CAJONES",
+   "categoria": "almacenaje",
+   "confianza": 0.28
+  }
+ ],
+ "B-84380": [
+  {
+   "ids_origen": [
+    "B-85581"
+   ],
+   "nombre": "Flexo LED regulable",
+   "categoria": "iluminacion",
+   "confianza": 0.41
+  },
+  {
+   "ids_origen": [
+    "B-70916"
+   ],
+   "nombre": "Alfombrilla protectora para silla",
+   "categoria": "accesorio",
+   "confianza": 0.31
+  },
+  {
+   "ids_origen": [
+    "B-50794"
+   ],
+   "nombre": "Reposapiés ergonómico",
+   "categoria": "accesorio",
+   "confianza": 0.28
+  },
+  {
+   "ids_origen": [
+    "A-4350"
+   ],
+   "nombre": "CAJONERA CON RUEDAS 3 CAJONES",
+   "categoria": "almacenaje",
+   "confianza": 0.28
+  }
+ ],
+ "A-6692": [
+  {
+   "ids_origen": [
+    "A-3551"
+   ],
+   "nombre": "APARADOR 3 PUERTAS",
+   "categoria": "almacenaje",
+   "confianza": 0.38
+  },
+  {
+   "ids_origen": [
+    "A-9295"
+   ],
+   "nombre": "Lámpara de techo Trenzada",
+   "categoria": "iluminacion",
+   "confianza": 0.33
+  },
+  {
+   "ids_origen": [
+    "A-4533"
+   ],
+   "nombre": "Alfombra de salón 160x230",
+   "categoria": "textil",
+   "confianza": 0.29
+  },
+  {
+   "ids_origen": [
+    "B-20825"
+   ],
+   "nombre": "Mesa de comedor Ebro extensible",
+   "categoria": "mesa",
+   "confianza": 0.38
+  }
+ ],
+ "B-49554": [
+  {
+   "ids_origen": [
+    "A-3551"
+   ],
+   "nombre": "APARADOR 3 PUERTAS",
+   "categoria": "almacenaje",
+   "confianza": 0.38
+  },
+  {
+   "ids_origen": [
+    "A-9295"
+   ],
+   "nombre": "Lámpara de techo Trenzada",
+   "categoria": "iluminacion",
+   "confianza": 0.33
+  },
+  {
+   "ids_origen": [
+    "A-4533"
+   ],
+   "nombre": "Alfombra de salón 160x230",
+   "categoria": "textil",
+   "confianza": 0.29
+  },
+  {
+   "ids_origen": [
+    "B-20825"
+   ],
+   "nombre": "Mesa de comedor Ebro extensible",
+   "categoria": "mesa",
+   "confianza": 0.38
+  }
+ ],
+ "A-3551": [
+  {
+   "ids_origen": [
+    "A-4533"
+   ],
+   "nombre": "Alfombra de salón 160x230",
+   "categoria": "textil",
+   "confianza": 0.42
+  },
+  {
+   "ids_origen": [
+    "A-9295"
+   ],
+   "nombre": "Lámpara de techo Trenzada",
+   "categoria": "iluminacion",
+   "confianza": 0.38
+  },
+  {
+   "ids_origen": [
+    "A-2964",
+    "B-52063"
+   ],
+   "nombre": "Mesa de comedor Duero redonda",
+   "categoria": "mesa",
+   "confianza": 0.42
+  },
+  {
+   "ids_origen": [
+    "A-6692",
+    "B-49554"
+   ],
+   "nombre": "Pack 4 sillas de comedor Arena",
+   "categoria": "silla",
+   "confianza": 0.38
+  }
+ ],
+ "A-5441": [
+  {
+   "ids_origen": [
+    "A-3115"
+   ],
+   "nombre": "Pack 2 almohadas viscoelásticas",
+   "categoria": "textil",
+   "confianza": 0.42
+  },
+  {
+   "ids_origen": [
+    "A-5051"
+   ],
+   "nombre": "FUNDA NÓRDICA 150 TODO EL AÑO",
+   "categoria": "textil",
+   "confianza": 0.36
+  },
+  {
+   "ids_origen": [
+    "B-22857"
+   ],
+   "nombre": "Juego de sábanas 150",
+   "categoria": "textil",
+   "confianza": 0.36
+  },
+  {
+   "ids_origen": [
+    "B-39342"
+   ],
+   "nombre": "Protector de colchón impermeable 150",
+   "categoria": "textil",
+   "confianza": 0.27
+  }
+ ],
+ "B-30739": [
+  {
+   "ids_origen": [
+    "A-3115"
+   ],
+   "nombre": "Pack 2 almohadas viscoelásticas",
+   "categoria": "textil",
+   "confianza": 0.42
+  },
+  {
+   "ids_origen": [
+    "A-5051"
+   ],
+   "nombre": "FUNDA NÓRDICA 150 TODO EL AÑO",
+   "categoria": "textil",
+   "confianza": 0.36
+  },
+  {
+   "ids_origen": [
+    "B-22857"
+   ],
+   "nombre": "Juego de sábanas 150",
+   "categoria": "textil",
+   "confianza": 0.36
+  },
+  {
+   "ids_origen": [
+    "B-39342"
+   ],
+   "nombre": "Protector de colchón impermeable 150",
+   "categoria": "textil",
+   "confianza": 0.27
+  }
+ ],
+ "B-20825": [
+  {
+   "ids_origen": [
+    "A-3551"
+   ],
+   "nombre": "APARADOR 3 PUERTAS",
+   "categoria": "almacenaje",
+   "confianza": 0.35
+  },
+  {
+   "ids_origen": [
+    "A-4533"
+   ],
+   "nombre": "Alfombra de salón 160x230",
+   "categoria": "textil",
+   "confianza": 0.31
+  },
+  {
+   "ids_origen": [
+    "A-9295"
+   ],
+   "nombre": "Lámpara de techo Trenzada",
+   "categoria": "iluminacion",
+   "confianza": 0.19
+  },
+  {
+   "ids_origen": [
+    "A-6692",
+    "B-49554"
+   ],
+   "nombre": "Pack 4 sillas de comedor Arena",
+   "categoria": "silla",
+   "confianza": 0.35
+  }
+ ],
+ "B-84838": [
+  {
+   "ids_origen": [
+    "B-70916"
+   ],
+   "nombre": "Alfombrilla protectora para silla",
+   "categoria": "accesorio",
+   "confianza": 0.52
+  },
+  {
+   "ids_origen": [
+    "B-67452"
+   ],
+   "nombre": "Soporte de monitor de madera",
+   "categoria": "accesorio",
+   "confianza": 0.39
+  },
+  {
+   "ids_origen": [
+    "B-85581"
+   ],
+   "nombre": "Flexo LED regulable",
+   "categoria": "iluminacion",
+   "confianza": 0.39
+  },
+  {
+   "ids_origen": [
+    "B-50794"
+   ],
+   "nombre": "Reposapiés ergonómico",
+   "categoria": "accesorio",
+   "confianza": 0.26
+  }
+ ],
+ "A-4350": [
+  {
+   "ids_origen": [
+    "B-85581"
+   ],
+   "nombre": "Flexo LED regulable",
+   "categoria": "iluminacion",
+   "confianza": 0.26
+  },
+  {
+   "ids_origen": [
+    "B-50794"
+   ],
+   "nombre": "Reposapiés ergonómico",
+   "categoria": "accesorio",
+   "confianza": 0.26
+  },
+  {
+   "ids_origen": [
+    "B-70916"
+   ],
+   "nombre": "Alfombrilla protectora para silla",
+   "categoria": "accesorio",
+   "confianza": 0.26
+  },
+  {
+   "ids_origen": [
+    "B-67452"
+   ],
+   "nombre": "Soporte de monitor de madera",
+   "categoria": "accesorio",
+   "confianza": 0.17
+  }
+ ],
+ "B-28073": [
+  {
+   "ids_origen": [
+    "A-9295"
+   ],
+   "nombre": "Lámpara de techo Trenzada",
+   "categoria": "iluminacion",
+   "confianza": 0.42
+  },
+  {
+   "ids_origen": [
+    "A-3551"
+   ],
+   "nombre": "APARADOR 3 PUERTAS",
+   "categoria": "almacenaje",
+   "confianza": 0.33
+  },
+  {
+   "ids_origen": [
+    "A-4533"
+   ],
+   "nombre": "Alfombra de salón 160x230",
+   "categoria": "textil",
+   "confianza": 0.33
+  },
+  {
+   "ids_origen": [
+    "B-20825"
+   ],
+   "nombre": "Mesa de comedor Ebro extensible",
+   "categoria": "mesa",
+   "confianza": 0.42
+  }
+ ],
+ "B-22857": [
+  {
+   "ids_origen": [
+    "A-5441",
+    "B-30739"
+   ],
+   "nombre": "Lámpara de mesilla Cerámica",
+   "categoria": "iluminacion",
+   "confianza": 0.48
+  },
+  {
+   "ids_origen": [
+    "A-3115"
+   ],
+   "nombre": "Pack 2 almohadas viscoelásticas",
+   "categoria": "textil",
+   "confianza": 0.48
+  },
+  {
+   "ids_origen": [
+    "A-5051"
+   ],
+   "nombre": "FUNDA NÓRDICA 150 TODO EL AÑO",
+   "categoria": "textil",
+   "confianza": 0.4
+  },
+  {
+   "ids_origen": [
+    "B-23736"
+   ],
+   "nombre": "Mesilla de noche 1 cajón",
+   "categoria": "almacenaje",
+   "confianza": 0.36
+  }
+ ],
+ "A-5805": [
+  {
+   "ids_origen": [
+    "A-4533"
+   ],
+   "nombre": "Alfombra de salón 160x230",
+   "categoria": "textil",
+   "confianza": 0.6
+  },
+  {
+   "ids_origen": [
+    "A-9295"
+   ],
+   "nombre": "Lámpara de techo Trenzada",
+   "categoria": "iluminacion",
+   "confianza": 0.4
+  },
+  {
+   "ids_origen": [
+    "A-3551"
+   ],
+   "nombre": "APARADOR 3 PUERTAS",
+   "categoria": "almacenaje",
+   "confianza": 0.25
+  },
+  {
+   "ids_origen": [
+    "A-6692",
+    "B-49554"
+   ],
+   "nombre": "Pack 4 sillas de comedor Arena",
+   "categoria": "silla",
+   "confianza": 0.3
+  }
+ ],
+ "A-9295": [
+  {
+   "ids_origen": [
+    "A-4533"
+   ],
+   "nombre": "Alfombra de salón 160x230",
+   "categoria": "textil",
+   "confianza": 0.63
+  },
+  {
+   "ids_origen": [
+    "A-3551"
+   ],
+   "nombre": "APARADOR 3 PUERTAS",
+   "categoria": "almacenaje",
+   "confianza": 0.38
+  },
+  {
+   "ids_origen": [
+    "A-2964",
+    "B-52063"
+   ],
+   "nombre": "Mesa de comedor Duero redonda",
+   "categoria": "mesa",
+   "confianza": 0.46
+  },
+  {
+   "ids_origen": [
+    "A-5805"
+   ],
+   "nombre": "MESA DE COMEDOR TAJO",
+   "categoria": "mesa",
+   "confianza": 0.33
+  }
+ ],
+ "A-5053": [
+  {
+   "ids_origen": [
+    "B-13338"
+   ],
+   "nombre": "Lámpara de pie Arco",
+   "categoria": "iluminacion",
+   "confianza": 0.43
+  },
+  {
+   "ids_origen": [
+    "A-6902",
+    "B-93141"
+   ],
+   "nombre": "SOFÁ AARHUS 3 PLAZAS",
+   "categoria": "sofa",
+   "confianza": 0.29
+  },
+  {
+   "ids_origen": [
+    "A-1116",
+    "B-65337"
+   ],
+   "nombre": "SOFÁ NÓRDICO 3 PLAZAS",
+   "categoria": "sofa",
+   "confianza": 0.19
+  },
+  {
+   "ids_origen": [
+    "B-52757"
+   ],
+   "nombre": "Sofá Bergen",
+   "categoria": "sofa",
+   "confianza": 0.14
+  }
+ ],
+ "B-21741": [
+  {
+   "ids_origen": [
+    "B-13338"
+   ],
+   "nombre": "Lámpara de pie Arco",
+   "categoria": "iluminacion",
+   "confianza": 0.43
+  },
+  {
+   "ids_origen": [
+    "A-6902",
+    "B-93141"
+   ],
+   "nombre": "SOFÁ AARHUS 3 PLAZAS",
+   "categoria": "sofa",
+   "confianza": 0.29
+  },
+  {
+   "ids_origen": [
+    "A-1116",
+    "B-65337"
+   ],
+   "nombre": "SOFÁ NÓRDICO 3 PLAZAS",
+   "categoria": "sofa",
+   "confianza": 0.19
+  },
+  {
+   "ids_origen": [
+    "B-52757"
+   ],
+   "nombre": "Sofá Bergen",
+   "categoria": "sofa",
+   "confianza": 0.14
+  }
+ ],
+ "A-6902": [
+  {
+   "ids_origen": [
+    "B-13338"
+   ],
+   "nombre": "Lámpara de pie Arco",
+   "categoria": "iluminacion",
+   "confianza": 0.53
+  },
+  {
+   "ids_origen": [
+    "A-5053",
+    "B-21741"
+   ],
+   "nombre": "Pack 4 cojines decorativos",
+   "categoria": "textil",
+   "confianza": 0.35
+  },
+  {
+   "ids_origen": [
+    "A-9000"
+   ],
+   "nombre": "Manta para sofá",
+   "categoria": "textil",
+   "confianza": 0.24
+  },
+  {
+   "ids_origen": [
+    "A-4533"
+   ],
+   "nombre": "Alfombra de salón 160x230",
+   "categoria": "textil",
+   "confianza": 0.18
+  }
+ ],
+ "B-93141": [
+  {
+   "ids_origen": [
+    "B-13338"
+   ],
+   "nombre": "Lámpara de pie Arco",
+   "categoria": "iluminacion",
+   "confianza": 0.53
+  },
+  {
+   "ids_origen": [
+    "A-5053",
+    "B-21741"
+   ],
+   "nombre": "Pack 4 cojines decorativos",
+   "categoria": "textil",
+   "confianza": 0.35
+  },
+  {
+   "ids_origen": [
+    "A-9000"
+   ],
+   "nombre": "Manta para sofá",
+   "categoria": "textil",
+   "confianza": 0.24
+  },
+  {
+   "ids_origen": [
+    "A-4533"
+   ],
+   "nombre": "Alfombra de salón 160x230",
+   "categoria": "textil",
+   "confianza": 0.18
+  }
+ ],
+ "A-4961": [
+  {
+   "ids_origen": [
+    "A-5051"
+   ],
+   "nombre": "FUNDA NÓRDICA 150 TODO EL AÑO",
+   "categoria": "textil",
+   "confianza": 0.4
+  },
+  {
+   "ids_origen": [
+    "B-22857"
+   ],
+   "nombre": "Juego de sábanas 150",
+   "categoria": "textil",
+   "confianza": 0.36
+  },
+  {
+   "ids_origen": [
+    "B-23736"
+   ],
+   "nombre": "Mesilla de noche 1 cajón",
+   "categoria": "almacenaje",
+   "confianza": 0.36
+  },
+  {
+   "ids_origen": [
+    "A-5441",
+    "B-30739"
+   ],
+   "nombre": "Lámpara de mesilla Cerámica",
+   "categoria": "iluminacion",
+   "confianza": 0.36
+  }
+ ],
+ "B-57833": [
+  {
+   "ids_origen": [
+    "A-5051"
+   ],
+   "nombre": "FUNDA NÓRDICA 150 TODO EL AÑO",
+   "categoria": "textil",
+   "confianza": 0.4
+  },
+  {
+   "ids_origen": [
+    "B-22857"
+   ],
+   "nombre": "Juego de sábanas 150",
+   "categoria": "textil",
+   "confianza": 0.36
+  },
+  {
+   "ids_origen": [
+    "B-23736"
+   ],
+   "nombre": "Mesilla de noche 1 cajón",
+   "categoria": "almacenaje",
+   "confianza": 0.36
+  },
+  {
+   "ids_origen": [
+    "A-5441",
+    "B-30739"
+   ],
+   "nombre": "Lámpara de mesilla Cerámica",
+   "categoria": "iluminacion",
+   "confianza": 0.36
+  }
+ ],
+ "A-6232": [
+  {
+   "ids_origen": [
+    "A-4533"
+   ],
+   "nombre": "Alfombra de salón 160x230",
+   "categoria": "textil",
+   "confianza": 0.27
+  },
+  {
+   "ids_origen": [
+    "A-9000"
+   ],
+   "nombre": "Manta para sofá",
+   "categoria": "textil",
+   "confianza": 0.27
+  },
+  {
+   "ids_origen": [
+    "A-5053",
+    "B-21741"
+   ],
+   "nombre": "Pack 4 cojines decorativos",
+   "categoria": "textil",
+   "confianza": 0.18
+  },
+  {
+   "ids_origen": [
+    "B-13338"
+   ],
+   "nombre": "Lámpara de pie Arco",
+   "categoria": "iluminacion",
+   "confianza": 0.18
+  }
+ ],
+ "B-36536": [
+  {
+   "ids_origen": [
+    "A-4533"
+   ],
+   "nombre": "Alfombra de salón 160x230",
+   "categoria": "textil",
+   "confianza": 0.27
+  },
+  {
+   "ids_origen": [
+    "A-9000"
+   ],
+   "nombre": "Manta para sofá",
+   "categoria": "textil",
+   "confianza": 0.27
+  },
+  {
+   "ids_origen": [
+    "A-5053",
+    "B-21741"
+   ],
+   "nombre": "Pack 4 cojines decorativos",
+   "categoria": "textil",
+   "confianza": 0.18
+  },
+  {
+   "ids_origen": [
+    "B-13338"
+   ],
+   "nombre": "Lámpara de pie Arco",
+   "categoria": "iluminacion",
+   "confianza": 0.18
+  }
+ ],
+ "A-9750": [
+  {
+   "ids_origen": [
+    "A-4533"
+   ],
+   "nombre": "Alfombra de salón 160x230",
+   "categoria": "textil",
+   "confianza": 0.56
+  },
+  {
+   "ids_origen": [
+    "A-9295"
+   ],
+   "nombre": "Lámpara de techo Trenzada",
+   "categoria": "iluminacion",
+   "confianza": 0.39
+  },
+  {
+   "ids_origen": [
+    "A-3551"
+   ],
+   "nombre": "APARADOR 3 PUERTAS",
+   "categoria": "almacenaje",
+   "confianza": 0.22
+  },
+  {
+   "ids_origen": [
+    "B-39342"
+   ],
+   "nombre": "Protector de colchón impermeable 150",
+   "categoria": "textil",
+   "confianza": 0.11
+  }
+ ],
+ "B-90466": [
+  {
+   "ids_origen": [
+    "A-4533"
+   ],
+   "nombre": "Alfombra de salón 160x230",
+   "categoria": "textil",
+   "confianza": 0.56
+  },
+  {
+   "ids_origen": [
+    "A-9295"
+   ],
+   "nombre": "Lámpara de techo Trenzada",
+   "categoria": "iluminacion",
+   "confianza": 0.39
+  },
+  {
+   "ids_origen": [
+    "A-3551"
+   ],
+   "nombre": "APARADOR 3 PUERTAS",
+   "categoria": "almacenaje",
+   "confianza": 0.22
+  },
+  {
+   "ids_origen": [
+    "B-39342"
+   ],
+   "nombre": "Protector de colchón impermeable 150",
+   "categoria": "textil",
+   "confianza": 0.11
+  }
+ ],
+ "A-2431": [
+  {
+   "ids_origen": [
+    "A-3028",
+    "B-84380"
+   ],
+   "nombre": "Silla de oficina Basic",
+   "categoria": "silla_oficina",
+   "confianza": 0.67
+  }
+ ],
+ "B-78559": [
+  {
+   "ids_origen": [
+    "A-9000"
+   ],
+   "nombre": "Manta para sofá",
+   "categoria": "textil",
+   "confianza": 0.4
+  },
+  {
+   "ids_origen": [
+    "A-5053",
+    "B-21741"
+   ],
+   "nombre": "Pack 4 cojines decorativos",
+   "categoria": "textil",
+   "confianza": 0.3
+  },
+  {
+   "ids_origen": [
+    "B-13338"
+   ],
+   "nombre": "Lámpara de pie Arco",
+   "categoria": "iluminacion",
+   "confianza": 0.3
+  }
+ ]
+}

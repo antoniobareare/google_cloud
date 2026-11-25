@@ -19,3 +19,11 @@ form.campos{display:grid;gap:10px;max-width:520px}
 table{width:100%;border-collapse:collapse}
 td,th{padding:8px;border-bottom:1px solid #e5e5e0;text-align:left}
 @media (max-width:480px){.cab nav a{margin-left:0;margin-right:12px}h1{font-size:1.35rem}}
+
+/* Venta cruzada (tienda/ventacruzada.js) */
+.vc{margin:24px 0;padding:16px;border:1px solid #e5e5e0;border-radius:8px;background:#fff}
+.vc h2{font-size:1.1rem;margin:0 0 12px}
+.vc-lista{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:12px}
+.vc-item{display:flex;flex-direction:column;gap:6px;min-width:0}
+.vc-precio{font-weight:700}
+.vc-aviso{padding:10px 12px;border-radius:6px;background:#eef6ee}
