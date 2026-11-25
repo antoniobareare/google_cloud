@@ -10,6 +10,7 @@ import { enviarPedido, ErrorPedido, prepararPedido } from './pedidos.js';
 import { carrito, esc, ficha, portada, rutaProducto } from './vistas.js';
 import { responder, calentar } from './asistente.js';
 import { crearVentaCruzada } from './ventacruzada.js';
+import { crearConjuntos } from './conjuntos.js';
 
 const DIR = path.dirname(fileURLToPath(import.meta.url));
 const PORT = Number(process.env.PORT || 8080);
@@ -39,13 +40,33 @@ const PRODUCTOS = new Map(productos.map((producto) => [producto.sku, producto]))
 
 // ---------- Venta cruzada (hito del agente: algo de iluminación, textil, almacenaje o accesorios) ----------
 const VENTA_CRUZADA = crearVentaCruzada(productos);
+const CONJUNTOS = crearConjuntos(productos);
 // En el carrito (página igual para todos): complementos baratos que encajan con casi cualquier compra
 const COMPLEMENTOS = ['lampara-de-pie-arco', 'pack-4-cojines-decorativos', 'manta-para-sofa', 'alfombra-de-salon-160x230']
   .map((sku) => PRODUCTOS.get(sku)).filter(Boolean);
+// Ofertas = ventajas reales de las condiciones de venta (los precios NO cambian: deben coincidir con el catálogo)
+const BANNER_OFERTAS = `<p class="oferta" role="note"><strong>Ofertas de la semana:</strong> envío gratis en pedidos desde 500 € y montaje a domicilio gratis desde 1.500 €. Amuebla la estancia completa con nuestros conjuntos y ahórrate el envío y el montaje.</p>`;
+// "Mejora tu elección": las 2 versiones superiores de la misma categoría
+const mejoras = (p) => productos.filter((o) => o.categoria === p.categoria && o.precio > p.precio)
+  .sort((a, b) => a.precio - b.precio).slice(0, 2);
+const bloqueMejoras = (p) => {
+  const lista = mejoras(p);
+  return lista.length ? `
+  <section class="vc" aria-label="Mejora tu elección">
+    <h2>Mejora tu elección</h2>
+    <p>Más calidad y más años de uso. Con pedidos desde 1.500 € el montaje a domicilio es gratis.</p>
+    <ul class="vc-lista">${lista.map((o) => `<li class="vc-item">
+      <a href="/producto/${encodeURIComponent(o.sku)}">${esc(o.nombre)}</a>
+      <span class="vc-precio">${o.precio.toLocaleString('es-ES', { minimumFractionDigits: 2 })} €</span>
+      <button type="button" data-agregar="${esc(o.sku)}" data-nombre="${esc(o.nombre)}">Añadir ${esc(o.nombre)} al carrito</button>
+    </li>`).join('')}</ul>
+  </section>` : '';
+};
 const BLOQUE_COMPLEMENTOS = COMPLEMENTOS.length ? `
   <section class="vc" aria-label="Completa tu casa">
     <h2>Antes de pagar: completa tu casa</h2>
-    <p>Los clientes que compran muebles suelen añadir iluminación y textil. Con pedidos desde 500 € el envío es gratis y desde 1.500 € el montaje también.</p>
+    <p id="aviso-oferta" class="oferta" role="status">Envío gratis desde 500 € y montaje a domicilio gratis desde 1.500 €.</p>
+    <p>Los clientes que compran muebles suelen añadir iluminación y textil.</p>
     <ul class="vc-lista">${COMPLEMENTOS.map((p) => `<li class="vc-item">
       <a href="/producto/${encodeURIComponent(p.sku)}">${esc(p.nombre)}</a>
       <span class="vc-precio">${p.precio.toLocaleString('es-ES', { minimumFractionDigits: 2 })} €</span>
@@ -99,7 +120,7 @@ const ESTATICOS = {
       titulo: 'Casa Devoteam · Muebles y decoración online',
       descripcion: 'Tienda online de muebles, iluminación, textil y decoración. Compra como invitado y recibe tu pedido en casa.',
       h1: 'Muebles y decoración para tu casa',
-      cuerpo: portada(productos),
+      cuerpo: BANNER_OFERTAS + CONJUNTOS.bloqueInicio() + portada(productos),
     }),
     'text/html; charset=utf-8'
   ),
@@ -121,7 +142,7 @@ const FICHAS = new Map(productos.map((producto) => [rutaProducto(producto.sku), 
   titulo: `${producto.nombre} · Casa Devoteam`,
   descripcion: `Consulta el precio y las características de ${producto.nombre} en Casa Devoteam.`,
   h1: producto.nombre,
-  cuerpo: ficha(producto) + VENTA_CRUZADA.bloqueFicha(producto.sku),
+  cuerpo: ficha(producto) + BANNER_OFERTAS + bloqueMejoras(producto) + CONJUNTOS.bloqueFicha(producto.sku) + VENTA_CRUZADA.bloqueFicha(producto.sku),
 }), 'text/html; charset=utf-8')]));
 
 const PAGINA_404 = preparar(
@@ -184,6 +205,9 @@ async function tramitarPedido(req, res) {
     const datos = JSON.parse(await leerCuerpo(req));
     const pedido = prepararPedido(datos, PRODUCTOS);
     await enviarPedido(pedido);
+    // Aprender del agente: qué compra y cuánto gasta (sin datos personales)
+    console.log(JSON.stringify({ severity: 'INFO', message: 'pedido enviado', total: pedido.total,
+      lineas: pedido.items.map((i) => `${i.quantity}x ${i.sku} ${i.unit_price}`) }));
     return json(req, res, 201, { order_id: pedido.order_id });
   } catch (error) {
     if (error instanceof SyntaxError) return json(req, res, 400, { error: 'El JSON del pedido no es válido.' });

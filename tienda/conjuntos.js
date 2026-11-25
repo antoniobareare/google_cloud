@@ -59,11 +59,8 @@ export function crearConjuntos(productos = [], definicion = DEFINICION) {
     return { ...c, lineas, total };
   }).filter((c) => c.lineas.length >= 3);
 
-  const formulario = (c) => `<form action="/carrito/anadir" method="post">
-${c.lineas.map((l) => `    <input type="hidden" name="sku" value="${esc(l.producto.sku)}">
-    <input type="hidden" name="cantidad" value="${l.cantidad}">`).join('\n')}
-    <button type="submit">Añadir el conjunto ${esc(c.nombre)} al carrito (${euros(c.total)})</button>
-  </form>`;
+  // Botón que añade todas las líneas al carrito del navegador (public/tienda.js, data-conjunto="sku:cantidad,...")
+  const formulario = (c) => `<button type="button" data-conjunto="${esc(c.lineas.map((l) => `${l.producto.sku}:${l.cantidad}`).join(','))}" data-nombre="conjunto ${esc(c.nombre)}">Añadir el conjunto ${esc(c.nombre)} al carrito (${euros(c.total)})</button>`;
 
   const tarjeta = (c) => `<article class="cj" id="conjunto-${esc(c.id)}">
   <h2>${esc(c.nombre)} · ${euros(c.total)}</h2>

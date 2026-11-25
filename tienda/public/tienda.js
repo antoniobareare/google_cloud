@@ -35,6 +35,22 @@ if (buscador && categoria) {
   categoria.addEventListener('change', filtrar);
 }
 
+// Conjuntos completos: un clic añade todas sus líneas y lleva al carrito
+for (const boton of document.querySelectorAll('[data-conjunto]')) {
+  boton.addEventListener('click', () => {
+    const items = leerCarrito();
+    for (const parte of boton.dataset.conjunto.split(',')) {
+      const [sku, cantidad] = parte.split(':');
+      const n = Number.parseInt(cantidad, 10) || 1;
+      const linea = items.find((item) => item.sku === sku);
+      if (linea) linea.quantity += n;
+      else items.push({ sku, quantity: n });
+    }
+    guardarCarrito(items);
+    location.href = '/carrito';
+  });
+}
+
 // Todos los botones "Añadir" de la página: el producto principal y los de venta cruzada
 for (const agregar of document.querySelectorAll('[data-agregar]')) {
   agregar.addEventListener('click', () => {
@@ -71,6 +87,14 @@ async function mostrarCarrito(formulario) {
   const actualizarTotal = () => {
     const centimos = items.reduce((suma, item) => suma + Math.round(catalogo.get(item.sku).precio * 100) * item.quantity, 0);
     total.textContent = euros.format(centimos / 100);
+    // Ofertas reales de las condiciones de venta: envío gratis desde 500 € y montaje gratis desde 1.500 €
+    const aviso = document.querySelector('#aviso-oferta');
+    if (aviso) {
+      const t = centimos / 100;
+      aviso.textContent = t >= 1500 ? 'Oferta conseguida: tu pedido tiene envío y montaje a domicilio gratis.'
+        : t >= 500 ? `Envío gratis conseguido. Te faltan ${euros.format(1500 - t)} para el montaje a domicilio gratis (ahorras 39 €).`
+        : `Te faltan ${euros.format(500 - t)} para el envío gratis (ahorras 49 €) y ${euros.format(1500 - t)} para el montaje gratis.`;
+    }
   };
 
   const disponibles = items.filter((item) => catalogo.has(item.sku));
