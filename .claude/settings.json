@@ -68,13 +68,14 @@
       "Bash(git commit *)",
       "Bash(git merge *)",
       "Bash(gcloud projects create *)",
-      "PowerShell(gcloud projects create *)"
+      "PowerShell(gcloud projects create *)",
+      "Bash(gcloud billing projects link *)",
+      "PowerShell(gcloud billing projects link *)"
     ],
     "deny": [
       "Bash(gcloud * delete *)",
       "Bash(gcloud * remove-iam-policy-binding *)",
       "Bash(gcloud * set-iam-policy *)",
-      "Bash(gcloud billing projects link *)",
       "Bash(gcloud billing projects unlink *)",
       "Bash(gcloud services disable *)",
       "Bash(gcloud iam service-accounts keys create *)",
@@ -95,7 +96,6 @@
       "PowerShell(gcloud * delete *)",
       "PowerShell(gcloud * remove-iam-policy-binding *)",
       "PowerShell(gcloud * set-iam-policy *)",
-      "PowerShell(gcloud billing projects link *)",
       "PowerShell(gcloud billing projects unlink *)",
       "PowerShell(gcloud services disable *)",
       "PowerShell(gcloud iam service-accounts keys create *)",
@@ -109,7 +109,6 @@
       "PowerShell(git reset --hard *)",
       "PowerShell(gh repo delete *)",
       "PowerShell(Remove-Item * -Recurse *)",
-      "Read(./.env)",
       "Read(./**/*-key.json)",
       "mcp__bigquery__execute_sql"
     ]

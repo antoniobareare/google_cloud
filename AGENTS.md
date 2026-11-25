@@ -176,6 +176,25 @@ Modelo o API no disponible en la región, permisos de Agent Platform (roles/aipl
 Al montar un agente o flujo, quien lo construya (el orquestador incluido) debe optimizar:
 - Corrección: respuestas exactas y en el formato del enunciado. Juego de pruebas en tests/, ejecutado tras cada cambio.
 - Latencia: modelo más rápido que dé la calidad necesaria (Flash antes que Pro), instrucciones concisas, pocas llamadas encadenadas, herramientas rápidas, context caching si el prompt es largo y repetido. Mide el tiempo de respuesta.
+
+### 9.1 Latencia medida (2026-11-25, agente ADK + 1 herramienta BigQuery, desde España, ubicación global)
+| Configuración | 1ª petición (fría) | Mediana en caliente | Aciertos |
+|---|---|---|---|
+| gemini-3.8-flash, thinking por defecto | 12,3 s | 6,9 s | 3/3 |
+| gemini-3.8-flash, thinking_level="low" | 7,5 s | 4,0 s | 3/3 |
+| gemini-3.5-flash-lite | 6,3 s | 3,1 s | 3/3 |
+| gemini-3.5-flash-lite, thinking_level="minimal" | 6,6 s | 2,95 s | 3/3 |
+Llamada suelta "Hola": 3.8-flash 2,1 s por defecto → 1,4 s con low; 3.5-flash-lite 0,6 s.
+BigQuery (consulta parametrizada pequeña): `query().result()` 1,4–2,4 s → `query_and_wait()` 0,7 s → con `default_job_creation_mode="JOB_CREATION_OPTIONAL"` 0,5 s.
+
+Ajustes, de más a menos impacto:
+1. Calentar: clientes (genai, BigQuery) creados una vez a nivel de módulo y una llamada de calentamiento al arrancar; en la demo, Cloud Run con min-instances=1 (pide confirmación, cuesta) y volver a 0 al acabar. Quita los 6–12 s de la primera petición.
+2. Thinking acotado en ADK: `planner=BuiltInPlanner(thinking_config=types.ThinkingConfig(thinking_level="low"))`. 3.8-flash no admite "minimal" (400); Flash-Lite sí.
+3. Flash-Lite para enrutar, clasificar o rellenar parámetros; Flash solo donde haga falta razonar.
+4. Cada uso de herramienta = 2 llamadas al modelo (decidir + redactar). Si el flujo es fijo, resuélvelo en código.
+5. BigQuery: `query_and_wait`, modo JOB_CREATION_OPTIONAL, tablas pequeñas o precalculadas, `maximum_bytes_billed`.
+6. Streaming para la latencia percibida (adk web ya lo hace).
+- En hackathon-prueba-antonio, gemini-3.8-flash solo existe en `global` (404 en us-central1, europe-west1, europe-west4); gemini-2.5-flash ya no está disponible (404). Comprueba los modelos del proyecto del reto con `client.models.list(config={"query_base": True})`.
 - Fiabilidad: errores controlados en herramientas, reintentos con espera exponencial, respuestas por defecto. El agente nunca se queda colgado ni devuelve un error sin explicar.
 - Coste: Flash por defecto, contexto acotado, max_iterations / recursion_limit, instancias mínimas a 0, nada caro encendido.
 - Seguridad: permisos mínimos, Secret Manager, nada público sin necesidad.
