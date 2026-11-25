@@ -18,6 +18,19 @@ const euros = (n) => new Intl.NumberFormat('es-ES', { style: 'currency', currenc
 // Si un producto no está en el catálogo (descatalogado o sin stock), la línea se omite.
 const DEFINICION = [
   {
+    id: 'hogar-completo', nombre: 'Hogar completo: salón de piel y dormitorio',
+    texto: 'La opción más completa: salón de piel con sillón y todos sus complementos, más dormitorio de 150 con colchón premium y ropa de cama. Envío y montaje a domicilio gratis.',
+    lineas: [[['A-6902', 'B-93141'], 1], [['A-1893'], 1], [['B-13338'], 1], [['A-4533'], 1], [['B-21741', 'A-5053'], 1], [['A-9000'], 1],
+      [['B-36878'], 1], [['B-98516'], 1], [['A-5051'], 1], [['A-3115'], 1], [['B-39342'], 1], [['B-22857'], 1],
+      [['B-23736'], 2], [['B-30739', 'A-5441'], 2], [['B-40144'], 1], [['A-9295'], 1]],
+  },
+  {
+    id: 'salon-comedor-premium', nombre: 'Salón-comedor premium',
+    texto: 'Sofá de piel, dos sillones, mesa extensible con sillas, aparador, estantería, iluminación y textil: el salón-comedor entero listo para estrenar, con envío y montaje gratis.',
+    lineas: [[['A-6902', 'B-93141'], 1], [['A-1893'], 2], [['B-20825'], 1], [['B-28073'], 1], [['A-3551'], 1], [['B-40144'], 1],
+      [['B-13338'], 1], [['A-9295'], 1], [['A-4533'], 1], [['B-21741', 'A-5053'], 1], [['A-9000'], 1]],
+  },
+  {
     id: 'salon', nombre: 'Salón completo',
     texto: 'Sofá de tres plazas con todo lo que nuestros clientes suelen añadir: luz de lectura, alfombra, cojines y manta.',
     lineas: [[['B-65337', 'A-1116'], 1], [['B-13338'], 1], [['A-4533'], 1], [['B-21741', 'A-5053'], 1], [['A-9000'], 1]],
@@ -77,8 +90,11 @@ ${c.lineas.map((l) => `    <li>${l.cantidad > 1 ? `${l.cantidad} × ` : ''}<a hr
       ? `<section class="cj-bloque" aria-label="Conjuntos completos"><h2 class="cj-titulo">Conjuntos completos: amuebla una estancia en un clic</h2>${lista.map(tarjeta).join('')}</section>`
       : '',
     bloqueFicha: (sku) => {
-      const c = lista.find((x) => x.lineas.some((l) => String(l.producto.sku) === String(sku)));
-      return c ? `<section class="cj-bloque" aria-label="Conjunto recomendado">${tarjeta(c)}</section>` : '';
+      // Hasta 2 conjuntos con este producto: el más completo y el más ajustado
+      const con = lista.filter((x) => x.lineas.some((l) => String(l.producto.sku) === String(sku))).sort((a, b) => b.total - a.total);
+      const elegidos = con.length > 1 ? [con[0], con[con.length - 1]] : con;
+      return elegidos.length ? `<section class="cj-bloque" aria-label="Conjunto recomendado"><h2>Llévate la estancia completa</h2>
+<p>Si tu presupuesto lo permite, te recomendamos el conjunto completo: todo combina, y con envío y montaje a domicilio gratis.</p>${elegidos.map(tarjeta).join('')}</section>` : '';
     },
   };
 }

@@ -120,7 +120,9 @@ const ESTATICOS = {
       titulo: 'Casa Devoteam · Muebles y decoración online',
       descripcion: 'Tienda online de muebles, iluminación, textil y decoración. Compra como invitado y recibe tu pedido en casa.',
       h1: 'Muebles y decoración para tu casa',
-      cuerpo: BANNER_OFERTAS + CONJUNTOS.bloqueInicio() + portada(productos),
+      // En la portada, dentro de cada categoría, primero lo de más calidad (mayor precio)
+      cuerpo: BANNER_OFERTAS + CONJUNTOS.bloqueInicio() + portada([...productos].sort((a, b) =>
+        (a.categoria === b.categoria ? 0 : productos.findIndex((p) => p.categoria === a.categoria) - productos.findIndex((p) => p.categoria === b.categoria)) || b.precio - a.precio)),
     }),
     'text/html; charset=utf-8'
   ),
