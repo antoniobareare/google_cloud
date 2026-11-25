@@ -82,6 +82,16 @@ Pide a Antonio que, con Claude Code abierto en esta carpeta, escriba:
     (`where bash` → primero `C:\Program Files\Git\...`). Si resuelve a WSL (`C:\Windows\System32\bash.exe`), el MCP fallará.
   - Necesita ADC y proyecto fijado. Prueba manual: `bash ./scripts/gcp-mcp-headers.sh` debe imprimir un JSON con `Authorization`.
   - Si no conecta, no bloquea nada: sigue con `gcloud` y `bq`.
+  - Arreglo probado en Windows (2026-11-25). El error "Incompatible auth server: does not support dynamic client
+    registration" significa que el script de cabeceras no llegó a ejecutarse. Hay dos causas:
+    1. `where.exe bash` (desde PowerShell) devuelve `C:\Windows\System32\bash.exe` (WSL). Solución: configuración local
+       de este ordenador, que tiene prioridad sobre `.mcp.json` y no lo cambia para los demás. Repite para logging y
+       cloudrun (url `https://run.googleapis.com/mcp`):
+       `claude mcp add-json --scope local bigquery '{"type":"http","url":"https://bigquery.googleapis.com/mcp","headersHelper":"\"C:/Program Files/Git/bin/bash.exe\" \"<ruta absoluta>/scripts/gcp-mcp-headers.sh\""}'`
+       Usa barras `/`: con `\b` el JSON se corrompe. Genera el JSON con Python para evitar errores de escape.
+    2. La carpeta no está marcada como de confianza, así que Claude Code no ejecuta `headersHelper`. Antonio abre
+       `claude` una vez en una terminal dentro de la carpeta y acepta el diálogo de confianza. Claude no lo hace por él.
+  - En Antigravity el CLI está en `%USERPROFILE%\.antigravity-ide\extensions\anthropic.claude-code-*\resources\native-binary\claude.exe`.
 
 ## 6. Entorno Python para ADK (cuando haga falta)
 ```bash
