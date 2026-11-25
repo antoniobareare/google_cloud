@@ -96,6 +96,11 @@ Pide a Antonio que, con Claude Code abierto en esta carpeta, escriba:
        tres servidores arrancan a la vez. Arreglado: el script lee el proyecto de `.env` o de la configuración de
        gcloud y pide el token directamente a oauth2.googleapis.com con `curl`. Tarda unos 1,3 s y solo recurre a
        gcloud si eso falla. Los registros están en `%LOCALAPPDATA%\claude-cli-nodejs\Cache\<carpeta>\mcp-logs-<servidor>\`.
+    4. La unidad en mayúscula o minúscula cuenta como otra carpeta. El panel de Antigravity/VS Code abre la carpeta
+       como `c:/Users/...` y el CLI desde Git Bash como `C:/Users/...`. En `~/.claude.json` hacen falta las dos
+       entradas en `projects`, cada una con `hasTrustDialogAccepted: true` y los `mcpServers` locales. El registro lo
+       delata: "set projects["c:/..."].hasTrustDialogAccepted". Tras cambiar `~/.claude.json`, reinicia el panel:
+       el proceso en marcha conserva la configuración antigua.
   - En Antigravity el CLI está en `%USERPROFILE%\.antigravity-ide\extensions\anthropic.claude-code-*\resources\native-binary\claude.exe`.
 
 ## 6. Entorno Python para ADK (cuando haga falta)
