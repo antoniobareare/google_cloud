@@ -1,0 +1,587 @@
+# Comienzo
+
+Tenéis 2 h 15 min para montar una tienda online, publicarla en Google Cloud y conseguir que un agente de IA entre a comprar en ella. Podéis usar la IA que queráis y se espera que lo hagáis. Se parte de cero, así que no se puede traer código previo.
+
+## Las dos partes
+
+El reto se puntúa sobre 1000 y tiene dos partes. Las dos cuentan y hay que hacer las dos.
+
+1. **Hitos técnicos, 530 puntos.** Son diez retos que comprobáis vosotros cuando queráis. Cuando los tengáis completos, pedís la evaluación general con un botón del portal.
+2. **El agente, 470 puntos.** Cuando la evaluación general está aprobada, un agente de IA intenta comprar en vuestra tienda. Tenéis cuatro pruebas y la quinta la lanzamos nosotros. Casi la mitad de la nota sale de aquí.
+
+## La tarde
+
+| Hora | Qué pasa |
+|---|---|
+| 15:00 | Presentación, reglas y reparto de proyectos |
+| 15:30 | Empieza la construcción |
+| 16:30 | Recomendamos tener para entonces la tienda publicada y por lo menos un hito completado. La evaluación general no es automática, la pedís vosotros desde el portal cuando tengáis los diez hitos |
+| 17:45 | Se acaba la construcción. Cada equipo hace una presentación de 5 minutos y mientras tanto ejecutamos la quinta prueba del agente |
+| 18:15 | Resultados y cierre |
+
+## La presentación final
+
+Cuando termina la construcción, cada equipo presenta su proyecto durante 5 minutos. Contad qué habéis construido, cómo habéis usado la IA, qué decisiones técnicas habéis tomado y qué haríais con más tiempo, y enseñad la tienda funcionando.
+
+Antes de la presentación, rellenad en el portal:
+
+- **Los participantes del equipo**, hasta 10. El nombre, los apellidos y el correo son obligatorios, y el LinkedIn es opcional.
+- **El enlace al repositorio de GitHub** que habéis usado. El portal comprueba si se ve desde fuera. Si es privado, dad acceso de lectura a las personas de la organización que os indica y avisad a un mentor para que lo verifique.
+- **El enlace a la presentación en Google Drive.** Aseguraos de que podemos abrirlo: en Drive, Compartir, «Cualquiera con el enlace» como lector. Si no podemos abrirlo, no podremos ver la presentación.
+
+Cuando la organización cierre el evento, ya no se podrá cambiar nada: ni lanzar pruebas, ni cambiar los datos ni los enlaces. Dejadlo todo listo antes. Vuestros resultados y datos se conservan.
+
+## Lo que tiene que cumplir vuestra tienda
+
+1. Una dirección de Cloud Run con HTTPS y **pública**, sin pedir inicio de sesión. Está explicado en [Publicar en Cloud Run](#publicar-en-cloud-run).
+2. Se puede comprar como invitado, sin registro, sin captcha, sin verificación por email y sin entrar con Google.
+3. El pago es simulado, con un botón de pagar y sin pedir datos reales. Nadie debe pedir datos de pago al agente.
+4. Cada pedido completado se envía a nuestro sistema con el formato de la página [El pedido](#el-pedido).
+5. Al abrir la portada fija una cookie llamada `hk_sesion`. Los detalles están en [Cómo se puntúa](#como-se-puntua).
+6. Vende el catálogo de los proveedores, limpio, y lo publica en `/catalogo.json`. Lo explica la página [Datos y asistente](#datos-y-asistente).
+7. Tiene un asistente que responde en `POST /api/asistente`.
+
+## El portal de vuestro equipo
+
+En el [portal](/), el portavoz del equipo registra al equipo con el código del evento, que está en la pantalla de la sala, y recibe una clave de equipo. Guardadla y compartidla solo con vuestro equipo. Con ella entra cualquiera desde su portátil.
+
+En el portal podéis:
+
+- Guardar la dirección de vuestra tienda, que tiene que ser de Cloud Run, del tipo `https://…run.app`. Es la que miramos y la que usa el agente. La podéis cambiar hasta que vuestra evaluación general se apruebe. Desde ese momento la tienda queda fijada en esa dirección.
+- Indicar los participantes del equipo y guardar los enlaces al repositorio de GitHub y a la presentación en Google Drive. Aseguraos de que podemos abrirlos.
+- Probar cada uno de los diez hitos cuando queráis, ver el resultado de la evaluación general y lanzar las pruebas del agente cuando se habiliten. Cómo funciona está en [Hitos y evaluaciones](#hitos-y-evaluaciones).
+- Ver vuestros resultados y lo que os falta, con una pista en cada hito que no sale bien.
+- Copiar el comando para enviar cada pedido de vuestra tienda a nuestro sistema.
+
+## Vuestro entorno
+
+Cada persona reclama sus 5 $ de saldo con su cuenta de Gmail y abre su propio proyecto de Google Cloud, como se explica en [Publicar en Cloud Run](#publicar-en-cloud-run). Podéis desarrollar cada uno en el vuestro, juntaros en uno o repartiros en varios. En cada proyecto podéis levantar una tienda distinta y pegar su dirección en el portal para probarla. Desplegad en la región `europe-southwest1` para que la latencia no os penalice. El saldo es muy ajustado, así que cuidad lo que desplegáis y lo que llama a modelos de IA. Tened en cuenta que tenéis 6 intentos por cada hito, y si cambiáis de URL no cuentan los hitos completados en otra. La tienda que tengáis guardada cuando se apruebe vuestra evaluación general es la que queda fijada y la que prueba el agente, así que elegid con cuidado cuál es.
+
+## Evaluaciones
+
+Tenéis 10 hitos técnicos que podéis comprobar cuando queráis, con 6 intentos cada uno. Cuando los tengáis todos completados, pedid una evaluación general desde el portal. Si la aprobáis, vuestra tienda queda fijada y se habilitan las pruebas del agente. Podéis lanzar 4 vosotros cuando queráis. La quinta la ejecutamos nosotros durante la exposición de vuestra solución. Los detalles están en [Hitos y evaluaciones](#hitos-y-evaluaciones).
+
+## Dónde preguntar
+
+A los mentores, que van pasando por las mesas. Solo os harán preguntas para que lleguéis vosotros a la solución.
+
+---
+
+# Publicar en Cloud Run
+
+Vuestra tienda tiene que estar en Cloud Run, en vuestro proyecto de Google Cloud. Nuestro evaluador y el agente entran desde fuera, así que la tienda tiene que ser pública, abierta a cualquiera sin iniciar sesión.
+
+## Preparar vuestro proyecto
+
+Cada persona trabaja en su propio proyecto de Google Cloud, que abre con su cuenta de Gmail y con los 5 $ de saldo que reclama. Se hace una sola vez.
+
+1. Reclamad el saldo con el enlace que os damos en la sala y entrad en la [consola de Google Cloud](https://console.cloud.google.com) con ese mismo Gmail.
+2. Cread un proyecto nuevo y anotad su identificador, el ID, que es el texto en minúsculas con guiones. No es el nombre.
+3. Comprobad que el proyecto tiene la facturación activa con el crédito que habéis reclamado. Sin eso no se puede desplegar nada.
+4. Abrid Cloud Shell, la terminal del propio navegador, que ya trae `gcloud` y vuestra sesión. No hay que instalar nada.
+5. Elegid el proyecto y activad lo que necesita Cloud Run.
+
+```bash
+gcloud config set project ID_DEL_PROYECTO
+gcloud services enable run.googleapis.com cloudbuild.googleapis.com artifactregistry.googleapis.com
+```
+
+Los proyectos abiertos con un Gmail personal no tienen políticas de organización, así que nada impide hacer la tienda pública.
+
+## Publicarla
+
+```bash
+gcloud run deploy mi-tienda --source . --region europe-southwest1 --allow-unauthenticated
+```
+
+- `--allow-unauthenticated` hace la tienda pública. Es obligatorio: sin él Cloud Run pide inicio de sesión y nuestras pruebas reciben un 403.
+- Con `--source .` Google construye la imagen desde vuestro código. La aplicación tiene que escuchar en el puerto de la variable de entorno `PORT`, que vale 8080.
+- Recomendamos la región `europe-southwest1` (Madrid). Si usáis otra región funciona igual, pero las peticiones tardan más y el tiempo de respuesta puntúa menos.
+- Al terminar, `gcloud` os da una dirección del tipo `https://mi-tienda-123456789.europe-southwest1.run.app`. Esa es la que se pega en el portal.
+
+## Si responde 403
+
+Un 403 significa que la tienda no es pública. Se arregla dando el rol `roles/run.invoker` a `allUsers`:
+
+```bash
+gcloud run services add-iam-policy-binding mi-tienda --region europe-southwest1 \
+  --member allUsers --role roles/run.invoker
+```
+
+El cambio tarda un par de minutos en notarse.
+
+## Comprobar que se puede entrar
+
+Desde cualquier terminal, sin identificaros:
+
+```bash
+curl -s -o /dev/null -w "%{http_code}\n" https://TU_URL
+```
+
+Tiene que responder `200`. Si responde `403`, la tienda no es pública.
+
+Si el hito «Estamos online» sigue fallando, la pista os dice el código que recibimos.
+
+| Código | Qué suele ser |
+|---|---|
+| 403 | La tienda no es pública. Publicadla con `--allow-unauthenticated` o dad `roles/run.invoker` a `allUsers` |
+| 404 | La portada no responde en la dirección raíz |
+| 500 o 503 | La aplicación falla al arrancar. Mirad los registros con `gcloud run services logs read mi-tienda --region europe-southwest1` |
+| Sin respuesta | La aplicación tarda en arrancar o no escucha en el puerto de `PORT` |
+
+## Cuidado con el saldo
+
+Cada prueba hace peticiones a vuestra tienda y el Black Friday llega a 200 visitantes a la vez. Con una tienda normal cuesta céntimos. Lo que gasta de verdad es una tienda que llama a un modelo de IA en cada visita y un asistente con un modelo grande. Una instancia siempre encendida (`--min-instances 1`) evita el arranque en frío, pero gasta saldo aunque nadie visite la tienda.
+
+---
+
+# El pedido
+
+Cada vez que un cliente completa una compra, vuestra tienda tiene que enviar un mensaje JSON con este formato (versión 1.0). Es lo que miramos para el logro Presente y lo que usa el agente para saber que ha comprado.
+
+## El formato
+
+```json
+{
+  "schema_version": "1.0",
+  "order_id": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+  "created_at": "2026-11-25T16:42:10Z",
+  "customer": {
+    "name": "Lucía Fernández Ruiz",
+    "email": "lucia@example.com",
+    "address": "Calle de los Olivos 12, 28045 Madrid"
+  },
+  "items": [
+    { "sku": "sofa-3p", "name": "Sofá 3 plazas Nórdico", "quantity": 1, "unit_price": 649.0 },
+    { "sku": "lampara-pie", "name": "Lámpara de pie", "quantity": 2, "unit_price": 45.0 }
+  ],
+  "currency": "EUR",
+  "total": 739.0
+}
+```
+
+## Cómo se envía
+
+Cuando se completa la compra, el **servidor de vuestra tienda** hace un `POST` con ese JSON al buzón de pedidos. Necesita tres cosas.
+
+- **La dirección del buzón:** `https://hk-buzon-168798369712.europe-southwest1.run.app/api/pedido`
+- **La clave de vuestro equipo.** La veis en el portal, en la parte de arriba, pulsando «Ver». Va en la cabecera `x-clave`.
+- **La cabecera** `content-type: application/json` y el JSON del pedido en el cuerpo.
+
+Para probarlo desde un terminal, guardad un pedido de ejemplo en `pedido.json` (el de arriba vale, con un `order_id` nuevo cada vez) y escribid vuestra clave donde pone `TU_CLAVE`:
+
+```bash
+curl -X POST https://hk-buzon-168798369712.europe-southwest1.run.app/api/pedido \
+  -H 'x-clave: TU_CLAVE' -H 'content-type: application/json' \
+  -d @pedido.json
+```
+
+Desde el código de la tienda es lo mismo. Este ejemplo es para Node, y la clave se lee de una variable de entorno para no dejarla escrita en el código:
+
+```js
+const r = await fetch('https://hk-buzon-168798369712.europe-southwest1.run.app/api/pedido', {
+  method: 'POST',
+  headers: { 'x-clave': process.env.CLAVE_EQUIPO, 'content-type': 'application/json' },
+  body: JSON.stringify(pedido),
+});
+if (!r.ok) console.error(r.status, await r.text()); // dice qué campo falla
+```
+
+No lo mandéis desde el navegador: la clave no debe estar en el código de la página.
+
+### Qué responde
+
+| Respuesta | Qué significa |
+|---|---|
+| `200` con `{"ok":true}` | El pedido es válido y ha quedado registrado |
+| `422` | El pedido no es válido. El mensaje dice qué falla (abajo hay ejemplos). Un `order_id` repetido también da 422 |
+| `401` | La clave no es la de ningún equipo. Copiadla otra vez del portal |
+| `400` | El cuerpo no es JSON |
+| `413` | El cuerpo pasa de 64 KB |
+| `429` | Demasiadas peticiones desde la misma dirección. Esperad un momento |
+| `502` | El buzón no ha podido guardarlo. Probad otra vez en unos segundos |
+
+El primer pedido válido os da **Presente**. Aparece marcado solo, hasta 20 segundos después de enviarlo, sin pulsar nada. Es también lo que usa el agente para saber que ha comprado, así que **enviad un pedido por cada compra completada**, justo al confirmarla.
+
+## Qué se valida
+
+| Campo | Regla |
+|---|---|
+| `schema_version` | Exactamente `"1.0"` |
+| `order_id` | Un UUID v4. No se puede repetir. Un pedido con el mismo identificador que otro anterior se rechaza |
+| `created_at` | Una fecha ISO 8601 con segundos y zona horaria, por ejemplo `2026-11-25T16:42:10Z`. Sin zona horaria se rechaza |
+| `customer` | Un objeto con `name`, `email` (con forma de email) y `address`, ninguno vacío |
+| `currency` | Exactamente `"EUR"` |
+| `items` | Una lista con **al menos un** producto |
+| `items[].sku` y `items[].name` | Texto no vacío |
+| `items[].quantity` | Un número entero, de 1 en adelante |
+| `items[].unit_price` | Un número de 0 en adelante |
+| `total` | Un número igual a la suma de `quantity × unit_price` de todas las líneas, al céntimo |
+
+## Qué os responde el buzón
+
+Cuando un pedido no es correcto, el buzón dice qué campo falla y por qué. Por ejemplo
+
+- `total no coincide con la suma de quantity × unit_price (suma 739, llega 749)`
+- `order_id debe ser un UUID v4`
+- `Falta customer.email`
+- `items debe tener al menos un producto`
+
+Los productos del pedido son los de vuestro catálogo. El `sku` de cada línea es el mismo `sku` que publicáis para ese producto en `/catalogo.json`, y `name` es su nombre. Con eso sabemos qué ha comprado el agente.
+
+El cuerpo del pedido no puede pasar de 64 KB ni de 200 líneas. Enviadlo antes de enseñar la confirmación al cliente. De todos los pedidos que llegan con la clave de vuestro equipo nos quedamos con el último, así que mientras corre una prueba del agente no hagáis compras con esa clave.
+
+Probad con un pedido de varias líneas y comprobad el total a mano. Pista: es el error más habitual, sobre todo con decimales.
+
+---
+
+# Hitos y evaluaciones
+
+El reto tiene dos partes y las dos puntúan. La primera son los diez hitos técnicos, 530 puntos, que podéis comprobar cuando queráis, y la evaluación general que los confirma. La segunda son los hitos del agente, 470 puntos, y se habilita cuando la evaluación general está aprobada.
+
+## Hitos técnicos
+
+Un hito es una prueba de un solo reto. Son diez.
+
+| Hito | Qué mira |
+|---|---|
+| Estamos online | Que la tienda responda. Queda hecho en cuanto probáis cualquier hito y la tienda responde, aunque ese hito no salga bien |
+| Presente | Que llegue un pedido válido. Queda hecho solo en cuanto vuestra tienda lo envía, aunque no pulséis el botón. Puede tardar hasta 20 segundos en aparecer |
+| Tiempo de respuesta | Lo rápida que responde la portada |
+| Black Friday | Cuántos visitantes a la vez aguanta |
+| Cabeceras de seguridad | HSTS, nosniff y CSP |
+| No filtra nada | Ficheros internos, páginas de error y lo que anuncia el servidor |
+| Sesión en cookie segura | La cookie `hk_sesion` |
+| Catálogo limpio | El fichero `/catalogo.json` |
+| Asistente e inyección | El endpoint del asistente y si resiste que lo saquen de su papel |
+| Calidad web | Ocho comprobaciones de calidad en la portada |
+
+Las reglas son estas.
+
+- Un hito completado suma todos sus puntos. Si sale a medias, suma la parte que corresponda, y solo se da por completado cuando sale al 100 %.
+- Tenéis 6 intentos por hito y podéis usarlos en cualquier momento.
+- Entre dos pruebas del mismo hito pasan 5 minutos.
+- Cada prueba gasta un intento, salga bien o mal.
+- Si el hito sale bien, queda completado y no se puede repetir con la misma tienda.
+- Si no sale bien, os damos una pista.
+- Si la tienda no responde cuando empezamos, el intento no se gasta.
+- Un hito completado se ve en amarillo hasta que la evaluación general lo confirma. Entonces pasa a verde.
+
+## Cambiar de tienda
+
+Los hitos completados y sus puntos pertenecen a la dirección que probasteis. Si guardáis otra dirección en el portal, por ejemplo la tienda de otro proyecto, los hitos empiezan de cero y os avisamos antes de hacer el cambio. Los hitos que no estén conseguidos con la nueva tienda vuelven a poder probarse. Los intentos gastados se mantienen. Si volvéis a la dirección anterior, recuperáis sus hitos.
+
+Así podéis desarrollar en varios proyectos a la vez y probar cada uno, teniendo en cuenta que debéis tener intentos suficientes. La puntuación que veis es la de la tienda que tengáis guardada en ese momento.
+
+Cuando se aprueba la evaluación general, la tienda queda fijada y ya no se puede cambiar. Si necesitáis cambiarla, hablad con la organización.
+
+## Evaluación general
+
+Cuando hayáis completado los diez hitos técnicos, podéis pedir una evaluación general con el botón «Pedir evaluación general» del portal. Os atendemos por orden de petición y veis en el portal en qué puesto de la cola estáis; podéis cancelar la petición. Antes de lanzarla, el mentor os hará preguntas sobre lo que habéis hecho, y tenéis que saber explicarlo. La lanza la organización y comprueba todos los hitos a la vez.
+
+- La evaluación general repite los diez hitos desde cero. Se aprueba solo si los diez salen completos en esa misma pasada: no se suman resultados de pruebas anteriores.
+- Si se aprueban los diez, pasan a verde, vuestra tienda queda fijada en su dirección y se habilita el agente.
+- Si no se aprueban, no cambia nada. Veréis en vuestra pantalla de hitos que la evaluación no se ha superado, con el detalle de cuáles han salido bien y cuáles no.
+- Podéis pedirla las veces que haga falta, con 5 minutos de espera entre una y otra.
+
+## Evaluación del agente
+
+Cuando vuestra evaluación general está aprobada, el agente entra en vuestra tienda y realiza una compra. Tenéis 4 pruebas que lanzáis vosotros desde el portal cuando queráis, una cada vez. La quinta la ejecutamos nosotros al final, mientras exponéis vuestra solución. Solo podéis tener una prueba pendiente a la vez y, si hay cola, veréis vuestro puesto en el portal.
+
+| Hito | Puntos | Qué mira |
+|---|---|---|
+| Completa la compra | 170 | Que el agente consiga comprar en vuestra tienda y el pedido llegue a nuestro sistema |
+| Venta cruzada | 80 | Que el pedido incluya algo que el agente no necesitaba (iluminación, textil, almacenaje o accesorios) sin pasarse del presupuesto. Se calcula solo |
+| La web se entiende | 70 | Que el agente termine la compra él solo, en 35 pasos y 4 minutos como máximo. Se calcula solo |
+| Ranking de gasto | 150 | Que el agente gaste una parte mayor de su presupuesto con una compra justificable. El primero suma 150, el segundo 90 y el tercero 50 |
+
+Para que el gasto cuente, el pedido tiene que ser de verdad lo que vendéis: los mismos productos, con el mismo precio que en vuestro catálogo, y sin pasar del presupuesto del agente, que son 4.000 €. Si no coincide, la prueba cuenta como compra pero el gasto, la venta cruzada y el ranking valen cero, y el portal os dice por qué.
+
+---
+
+# Datos y asistente
+
+Vuestra tienda no se inventa lo que vende. Vende el catálogo de dos proveedores. Os damos sus ficheros tal como los mandan, y limpiarlos es parte del reto. Lo que publiquéis lo usan el agente y vuestro asistente.
+
+Descargas, cada fichero tal como lo envían los proveedores: [`proveedor-a.csv`](/datos/proveedor-a.csv), [`proveedor-b.json`](/datos/proveedor-b.json), [`historial-ventas.csv`](/datos/historial-ventas.csv), [`condiciones-de-venta.md`](/datos/condiciones-de-venta.md) y [`LEEME.md`](/datos/LEEME.md).
+
+## Lo que hay en el paquete
+
+| Fichero | Qué es |
+|---|---|
+| `proveedor-a.csv` | Catálogo del proveedor A |
+| `proveedor-b.json` | Catálogo del proveedor B |
+| `historial-ventas.csv` | Pedidos pasados de una tienda parecida, con lo que se compra junto |
+| `condiciones-de-venta.md` | Envíos, montaje, devoluciones, garantía y pago |
+| `LEEME.md` | Las reglas de los datos y el formato exacto de lo que publicáis |
+
+## Las reglas de los datos
+
+- Si un producto aparece en los dos proveedores, se vende una sola vez, con los datos de la actualización más reciente.
+- Lo descatalogado no se vende.
+- Los precios de la tienda van con IVA (21 %) y en euros.
+- Las medidas van en centímetros.
+
+Los dos proveedores no escriben igual. Mirad bien los formatos, las unidades, los idiomas y lo que solo aparece en las descripciones.
+
+## Lo que publica vuestra tienda
+
+| Ruta | Qué devuelve |
+|---|---|
+| `GET /catalogo.json` | Vuestro catálogo limpio, con el formato del `LEEME.md` |
+| `POST /api/asistente` | Recibe `{"pregunta": "..."}` y devuelve `{"respuesta": "..."}` |
+
+El asistente responde a clientes. Lo que sabe sale de vuestro catálogo y de las condiciones de venta. Si algo no existe o no está en las condiciones, lo correcto es decirlo. Y solo habla de la tienda. Las respuestas tienen que ser cortas (menos de 1.500 caracteres), sin listar más de cuatro precios, y llegar en menos de 30 segundos. Contestad con HTTP 200 y el texto en `respuesta`.
+
+## Cómo comprobarlo
+
+```bash
+curl -s TU_URL/catalogo.json | head -c 600
+curl -s -X POST TU_URL/api/asistente -H 'content-type: application/json' -d '{"pregunta":"¿Cuánto cuesta el envío?"}'
+```
+
+Las dos cosas se prueban desde el portal con los hitos «Catálogo limpio» y «Asistente e inyección». Cada vez el asistente recibe preguntas distintas, así que no sirve preparar respuestas fijas. Un asistente que llama a un modelo grande en cada pregunta gasta más saldo y tarda más. La latencia también puntúa.
+
+---
+
+# Cómo se puntúa
+
+El máximo es de 1000 puntos y hay dos partes. La primera son los diez hitos técnicos, 530 puntos, que se comprueban de forma automática. La segunda es el agente, 470 puntos, una IA que compra en vuestra tienda cuando la evaluación general está aprobada.
+
+Todo se mide desde fuera, con peticiones a la dirección de vuestra tienda y con los pedidos que ella nos envía.
+
+Las notas son graduadas. Cada prueba da una parte de sus puntos según lo bien que se cumpla. Cada hito suma sus puntos tanto si lo probáis solo como dentro de una evaluación general, y cada logro se queda con su mejor resultado en la tienda que tengáis guardada. Si mejoráis, sube, y si una prueba posterior sale peor, no baja. Si cambiáis de tienda se cuenta la nueva, y si volvéis a la anterior recuperáis lo suyo. Una vez aprobada la evaluación general, la tienda queda fijada. Cómo se lanzan los hitos y las evaluaciones está en la página «Hitos y evaluaciones».
+
+## Hitos técnicos (530)
+
+### Infra (120)
+
+| Logro | Puntos | Qué se comprueba |
+|---|---|---|
+| Estamos online | 30 | Vuestra dirección es HTTPS y responde. Es sí o no. |
+| Presente | 30 | Llega un primer pedido válido con el formato v1.0. La respuesta del buzón os dice qué campo falla. Es sí o no. |
+| Tiempo de respuesta | 30 | 20 peticiones seguidas a la portada. 15 puntos por la mediana, completa con 200 ms o menos y cero con 1 s o más, proporcional entre medias. Otros 15 por el percentil 95, completa con 500 ms o menos y cero con 2 s o más. |
+| Black Friday | 30 | Visitantes a la vez en escalones de 25, 50, 100 y 200, 30 segundos cada uno, solo leyendo la portada y las fichas. No hacemos pedidos. Un escalón se supera con menos del 1 % de fallos (un 5xx, un 429, un error de red o más de 10 s sin respuesta cuenta como fallo, así que no pongáis un limitador de peticiones: toda la carga sale de la misma dirección) y el 95 % de las respuestas en 1,5 s o menos. Cada escalón superado vale un cuarto de los puntos y la prueba para en el primero que falla. |
+
+### Ciber (120)
+
+| Logro | Puntos | Qué se comprueba |
+|---|---|---|
+| Cabeceras de seguridad | 30 | Se miran en la respuesta directa de vuestra dirección, sin seguir redirecciones. HSTS vale 10 y es completa con un `max-age` de un año o más y la mitad si es menor. `X-Content-Type-Options: nosniff` vale 5. CSP vale 15, la mitad si restringe `default-src` o `script-src` sin comodines y completa si además los scripts no admiten `'unsafe-inline'` ni `'unsafe-eval'`. Cloud Run no las añade, las tiene que enviar vuestro código. |
+| No filtra nada | 30 | Ficheros y datos internos valen 15, con configuración, código fuente, copias de seguridad y listados de pedidos o de clientes. Ninguno accesible da la nota completa, uno la mitad y dos o más cero. Las páginas de error valen 8 y no deben enseñar trazas ni rutas internas. Lo que anuncia la respuesta vale 7, sin framework ni versión del servidor. |
+| Sesión en cookie segura | 30 | Al abrir la portada por primera vez, sin cookies previas, vuestra tienda fija una cookie llamada `hk_sesion` con un valor (8), con `Secure` y `HttpOnly` (15) y con `SameSite=Lax` o `Strict` (7). |
+| El asistente resiste la inyección | 30 | En la prueba del asistente, una de las preguntas intenta sacarle de su papel. Es completa si no cae, la mitad si cae en parte y cero si cae. |
+
+### Data (120), catálogo limpio
+
+Vuestra tienda solo puede vender los productos de los dos proveedores que os damos al empezar. Los datos llegan sucios. Publicad el catálogo limpio en `GET /catalogo.json`, con el formato del fichero `LEEME.md` del paquete.
+
+| Logro | Puntos | Qué se comprueba |
+|---|---|---|
+| Publicado con el formato | 30 | Qué parte de los productos que se pueden vender aparece en vuestro catálogo con el formato correcto. |
+| Sin repetidos ni descatalogados | 30 | Un producto que está en los dos proveedores se vende una sola vez y lo descatalogado no se vende. Cada error resta. |
+| Precios correctos con IVA | 30 | Qué parte de los productos tiene el precio correcto, con IVA y del dato más reciente. |
+| Atributos bien extraídos | 30 | Categoría, plazas en los sofás, ancho en centímetros, color y material, con el vocabulario del `LEEME.md`. |
+
+Todas las notas se calculan sobre el catálogo completo. Publicar unos pocos productos perfectos no da la nota máxima.
+
+### IA (120), asistente de la tienda
+
+Un asistente que responde a los clientes en `POST /api/asistente`. Recibe `{"pregunta": "..."}` y devuelve `{"respuesta": "..."}`. Lo que debe saber está en vuestro catálogo y en el fichero `condiciones-de-venta.md` del paquete. Si además lo ponéis visible en la web, mejor para vuestros clientes, pero lo que se puntúa es el endpoint.
+
+Cada prueba hace 7 preguntas nuevas. Si no responde a ninguna, el intento no se gasta.
+
+| Logro | Puntos | Qué se comprueba |
+|---|---|---|
+| Responde | 20 | Qué parte de las preguntas contesta con el formato correcto. |
+| Sabe del catálogo | 40 | Preguntas sobre productos y precios. |
+| Sabe de las condiciones | 30 | Envíos, montaje, devoluciones, garantía y pago. |
+| No se inventa nada | 30 | Preguntas sobre cosas que no existen. Lo correcto es decir que no. |
+
+Decir que no a todo no es saber. «No se inventa nada» y «resiste la inyección» cuentan en proporción a lo que vuestro asistente acierta en las preguntas con un dato concreto, y enteros si acierta la mitad o más.
+
+Sabe del catálogo, sabe de las condiciones y no se inventa nada se multiplican por un factor de latencia. Vale ×1 si la mediana de respuesta es de 3 s o menos, ×0,8 hasta 8 s y ×0,6 si es mayor. Un modelo ligero y rápido que acierta vale más que uno grande y lento que acierta igual.
+
+### Transversal (50)
+
+| Logro | Puntos | Qué se comprueba |
+|---|---|---|
+| Calidad web | 50 | Ocho comprobaciones en la portada y hasta dos páginas más de la tienda. Idioma declarado, título y meta descripción de 20 caracteres o más, etiqueta `viewport`, todas las imágenes con `alt`, un único `h1`, campos de formulario con etiqueta, sin errores en la consola al cargar y sin desbordamiento a 375 px de ancho. La nota es la parte de comprobaciones cumplidas. |
+
+## El agente (470)
+
+Un agente de IA entra en vuestra tienda con una situación que no conocéis, qué necesita y cuánto dinero tiene, y compra. Tiene que poder hacerlo como invitado, sin registro, sin captcha y sin «entrar con Google». El pago es simulado y nunca debe pedir datos de pago reales.
+
+| Hito del agente | Puntos | Qué se mira |
+|---|---|---|
+| Completa la compra | 170 | El agente consigue comprar en vuestra tienda en alguna de sus pruebas y el pedido llega a nuestro sistema. Se cuenta solo |
+| Venta cruzada | 80 | El pedido incluye algo que el agente no necesitaba, de iluminación, textil, almacenaje o accesorios, sin pasarse del presupuesto. Se calcula solo |
+| La web se entiende | 70 | El agente termina la compra él solo, en 35 pasos y 4 minutos como máximo. Se calcula solo |
+| Ranking de gasto | 150 | Gana quien consigue que el agente gaste una mayor parte de su presupuesto con una compra que pueda justificar. El primero se lleva 150 puntos, el segundo 90 y el tercero 50. Cuenta vuestra mejor prueba y la segunda mejor desempata. Los empates que sigan los decidimos nosotros |
+
+- Para que el gasto cuente, el pedido tiene que coincidir con vuestro catálogo, con los mismos productos y precios, y no pasar de 4.000 €. Si no, la prueba cuenta como compra pero el gasto, la venta cruzada y el ranking valen cero.
+- El agente se habilita cuando vuestra evaluación general está aprobada. Entra en la tienda que quedó fijada con esa evaluación.
+- Tenéis 5 pruebas. Cuatro las lanzáis vosotros desde el portal cuando queráis, una cada vez, y la quinta la ejecutamos nosotros en directo mientras exponéis. Cada ejecución dura 5 minutos como máximo. Las pruebas no se recuperan, salvo que fallen por nuestra infraestructura.
+- Si se agota el tiempo, cuenta lo que haya en el carrito en ese momento.
+- La situación es la misma en todas las pruebas y para todos los equipos. Podéis aprender de lo que hace el agente en vuestra tienda, y eso es mejorar con datos.
+
+## Reglas
+
+- Se permiten textos o instrucciones en vuestra web dirigidos al cliente para que compre más o compre ahí.
+- Se descalifica a quien altere la puntuación, acceda al marcador o a nuestra infraestructura, o afecte a otros equipos.
+- Se parte de cero y no se puede traer código previo. La IA está permitida y se espera.
+- Cada persona tiene su propio proyecto de Google Cloud con 5 $ de saldo.
+
+---
+
+# El agente
+
+El agente es la segunda parte del reto y vale 470 de los 1000 puntos. Es un cliente de IA. Abre vuestra tienda en un navegador de verdad, mira la pantalla como lo haría una persona, decide qué pulsar y compra. No tiene acceso a vuestro código ni a nada interno. Solo ve lo que ve un visitante.
+
+## Cuándo se lanza
+
+El agente se habilita cuando vuestra evaluación general está aprobada. Entonces lanzáis vosotros hasta 4 pruebas desde el portal, una cada vez. La quinta la lanzamos nosotros durante la exposición. Entra siempre en la tienda que quedó fijada al aprobar la evaluación general.
+
+## Qué hace
+
+- En cada paso recibe una captura de la página y la lista de elementos con los que puede interactuar, como enlaces, botones, campos y desplegables. Los que quedan tapados por una ventana emergente no los tiene disponibles.
+- Con eso decide una acción. Puede pulsar, escribir, elegir en un desplegable, bajar o terminar.
+- Rellena los formularios con los datos de un personaje ficticio.
+- Compra solo lo que necesita y sin pasarse de su presupuesto.
+- Termina cuando ve la confirmación del pedido, o se rinde si se queda sin salida.
+
+## Qué no sabéis
+
+El agente tiene un presupuesto de 4.000 €. Lo que necesita comprar no os lo contamos. Su situación es la misma en todos los intentos y para todos los equipos. Podéis ir deduciéndola de lo que hace en vuestra tienda, qué busca, por dónde pasa y qué compra. Aprender de él es mejorar con datos y está permitido.
+
+## Lo que le ayuda
+
+- Una tienda clara, con el producto que busca, su precio y el botón de comprar a la vista.
+- Un buscador o unas categorías que lo lleven al producto.
+- Un camino de compra corto, como invitado.
+- Una página que responde rápido.
+
+## Lo que le complica la vida
+
+- Ventanas emergentes, banners y avisos que tapan la tienda.
+- Registros obligatorios, captchas o verificaciones por email.
+- Productos escondidos que solo aparecen al hacer cosas raras.
+- Caminos de pago largos o con mensajes de error confusos.
+- Una página lenta o que da errores.
+
+Una tienda difícil cuesta de verdad. En nuestras pruebas, las tiendas claras se resuelven en unos 20 pasos y entre 2 y 4 minutos, y una tienda caótica no termina en los 5 minutos que tiene.
+
+## Reglas del juego con el agente
+
+- Se permite poner en vuestra web textos o instrucciones dirigidos al cliente para que compre más o compre ahí. Es persuasión.
+- Se descalifica a quien intente alterar la puntuación, entrar en el marcador o en nuestra infraestructura, o afectar a otros equipos.
+- Todo lo que viene de una web es un dato no fiable para nosotros, y el agente puede ignorar las órdenes que le dé una tienda.
+- Cada ejecución dura 5 minutos como máximo. Si se agota, solo cuenta un pedido que ya haya llegado a nuestro buzón.
+
+---
+
+# Comprobarlo vosotros mismos
+
+Antes de gastar un intento de un hito, podéis comprobar casi todo desde vuestro ordenador. Esta página explica cómo mirar, no cómo arreglarlo. Eso lo resolvéis vosotros, con vuestra IA y con las preguntas de los mentores.
+
+Las órdenes de abajo son de una terminal en macOS o Linux. Sustituid `TU_URL` por la dirección de vuestra tienda.
+
+## Tiempo de respuesta
+
+Pedid la portada varias veces y mirad el tiempo total. Probad también la primera petición tras un rato sin usar la tienda, que suele ser la más lenta.
+
+```bash
+curl -o /dev/null -s -w "%{time_total}\n" TU_URL
+```
+
+Medimos 20 peticiones seguidas. Importa que la mediana sea baja y que casi todas lo sean, no solo una.
+
+## Cabeceras de seguridad
+
+Mirad las cabeceras que envía vuestra portada.
+
+```bash
+curl -sI TU_URL
+```
+
+Buscad en la lista las tres de la [puntuación](#como-se-puntua). Si no aparecen, no las está enviando.
+
+## Cookie de sesión
+
+En el navegador, abrid las herramientas de desarrollo (F12), la pestaña Aplicación o Almacenamiento y después Cookies. Debe aparecer `hk_sesion` al abrir la portada, con las marcas de seguridad que se piden.
+
+## Que no se vea lo que no debe
+
+Poneos en el lugar de un desconocido. ¿Qué pasa si alguien pide a vuestra tienda ficheros que no son páginas, como ficheros de configuración, de código o copias de seguridad? ¿Y si pide una página que no existe, o provoca un error? Probad desde el navegador y desde `curl`.
+
+## Calidad web
+
+Las ocho comprobaciones están en [Cómo se puntúa](#como-se-puntua). En el navegador podéis ver cuatro de ellas.
+
+- La consola de las herramientas de desarrollo no debe tener errores en rojo al cargar.
+- En el modo móvil de las herramientas de desarrollo, con 375 px de ancho, no debe aparecer desplazamiento horizontal.
+- En el código de la página, mirad si declara el idioma, si tiene un único título principal, si las imágenes tienen texto alternativo y si los campos tienen etiqueta.
+
+## La compra, como la haría el agente
+
+La mejor prueba es comprar vosotros en una ventana de incógnito, como un desconocido y sin cuenta, con el móvil y con el ordenador. Si os cuesta a vosotros, le costará al agente. Comprobad también que el pedido llega a nuestro sistema con el formato correcto. La respuesta del buzón os dice qué falla.
+
+---
+
+# Preguntas frecuentes
+
+## ¿Puedo traer código que ya tenía?
+
+No. Se parte de cero. La IA sí está permitida y se espera que la uséis. No podéis usar repositorios que ya teníais previamente. 
+
+## ¿Qué pasa si el agente falla?
+
+Depende de por qué. Si falla por nuestra infraestructura, por ejemplo el modelo, la cuota o la red, el intento se devuelve y se repite. Si se pierde por vuestra web, el intento cuenta. Lo decide un organizador mirando qué pasó. Si el intento se devuelve, volvéis a tenerlo disponible.
+
+## ¿Se recuperan los intentos del agente?
+
+No. Tenéis 5 y no se recuperan con el tiempo. Cuatro las lanzáis vosotros cuando queráis, una vez aprobada la evaluación general, y el quinto lo ejecutamos nosotros en directo mientras exponéis.
+
+## ¿Y si el agente no termina a tiempo?
+
+Cada ejecución dura 5 minutos como máximo. Si se agota, solo cuenta un pedido que ya haya llegado a nuestro buzón. Enviadlo en cuanto se confirme la compra, antes de enseñar la confirmación.
+
+## ¿Qué diferencia hay entre un hito y la evaluación general?
+
+Un hito prueba un solo reto y tiene 6 intentos, con 5 minutos de espera entre pruebas. La evaluación general lanza todos los hitos a la vez y sirve para comprobar que todo está funcionando bien a la vez. Solo podéis pedir la evaluación general cuando hayáis completado todos los hitos individualmente y aprobar la evaluación general os habilita poder pedir las 4 evaluaciones del agente. Los detalles están en [Hitos y evaluaciones](#hitos-y-evaluaciones).
+
+## ¿Qué pasa si cambio la dirección de la tienda en el portal?
+
+Los hitos completados y sus puntos pertenecen a la dirección que probasteis, así que empiezan de cero y el portal os avisa antes de cambiar. Los intentos gastados se mantienen. Si volvéis a la dirección anterior, recuperáis sus checks.
+
+## ¿Cuándo es la evaluación general?
+
+La evaluación general se hace cuando un equipo haya completado todos los hitos técnicos y pida ejecutarla a uno de los mentores. No se realiza automáticamente. Se puede pedir las veces que haga falta, con 5 minutos de espera entre una y otra. Para pedir la evaluación general, tenéis que saber responder qué habéis hecho hasta el momento y saber argumentarlo, es posible que los mentores os hagan preguntas. Revisad el código antes de pedirla para saber contestar, debéis poder explicar todo lo que esté montado aunque se haya construido con IA.
+
+## ¿Puedo cambiar la tienda después de aprobar la evaluación general?
+
+No. Al aprobarla, la tienda queda fijada en la dirección con la que se aprobó y es la que prueba el agente. Si hay un motivo de peso, hablad con la organización.
+
+## ¿Qué pasa si no apruebo la evaluación general?
+
+No cambia nada. Seguís con vuestros hitos en amarillo, veis qué hitos han fallado y por qué, corregís y pedís otra evaluación al cabo de 5 minutos como mínimo.
+
+## ¿Por qué el gasto de mi prueba del agente sale a cero?
+
+Casi siempre porque el pedido que envía vuestra tienda no coincide con vuestro catálogo, ya sea por un producto que no existe, por un precio distinto del que publicáis o porque pasa de 4.000 €. En el portal, la columna «Detalle» de la prueba os dice qué ha pasado.
+
+## ¿Qué es Black Friday?
+
+Una prueba de carga. Lanzamos visitantes a la vez contra vuestra tienda en escalones de 25, 50, 100 y 200, solo para mirar la portada y las fichas de producto, sin comprar. Es uno de los hitos y también forma parte de la evaluación general. Cuanto más aguantéis con menos recursos, más nota.
+
+## ¿Puedo poner textos en mi tienda para convencer al agente de comprar más?
+
+Sí, está permitido. Lo que no está permitido es intentar alterar la puntuación o atacar al sistema o a otros equipos.
+
+## ¿Dónde veo mi puntuación?
+
+En el portal y en el marcador de la pantalla de la sala. Cada logro se queda con su mejor resultado en la tienda que tengáis guardada, así que no baja aunque después algo falle.
+
+## No encuentro la respuesta
+
+Preguntad a un mentor o a un organizador. Os ayudarán con preguntas, no con código.
