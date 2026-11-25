@@ -5,6 +5,13 @@
   "type": "module",
   "description": "Tienda online del hackathon Devoteam en Cloud Run",
   "main": "server.js",
-  "scripts": { "start": "node server.js" },
-  "engines": { "node": "22.x" }
+  "scripts": {
+    "start": "node server.js"
+  },
+  "engines": {
+    "node": "22.x"
+  },
+  "dependencies": {
+    "@google/genai": "^3.6.1"
+  }
 }

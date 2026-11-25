@@ -3,6 +3,7 @@
 .env
 .env.*
 node_modules/
-datos/
 scripts/
-*.md
+datos/LEEME.md
+datos/*.csv
+datos/*.json

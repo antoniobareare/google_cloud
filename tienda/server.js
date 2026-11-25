@@ -6,6 +6,7 @@ import { gzipSync, brotliCompressSync, constants as zlibConst } from 'node:zlib'
 import { randomBytes } from 'node:crypto';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { responder, calentar } from './asistente.js';
 
 const DIR = path.dirname(fileURLToPath(import.meta.url));
 const PORT = Number(process.env.PORT) || 8080;
@@ -137,8 +138,7 @@ async function manejar(req, res) {
   if (req.method === 'POST' && ruta === '/api/asistente') {
     let pregunta = '';
     try { pregunta = String(JSON.parse(await leerCuerpo(req)).pregunta || ''); } catch { /* cuerpo no válido */ }
-    if (!pregunta.trim()) return json(req, res, 200, { respuesta: 'Hazme una pregunta sobre nuestros productos, envíos, montaje, devoluciones, garantía o pago.' });
-    return json(req, res, 200, { respuesta: 'Soy el asistente de Casa Devoteam. Estamos terminando de cargar el catálogo; vuelve a preguntarme en unos minutos.' });
+    return json(req, res, 200, { respuesta: await responder(pregunta) });
   }
 
   return enviar(req, res, 404, PAGINA_404);
@@ -155,4 +155,7 @@ const servidor = http.createServer((req, res) => {
 // alguna petición caería en una conexión recién cerrada y daría un 502 esporádico (malo para p95 y Black Friday).
 servidor.keepAliveTimeout = 620_000;
 servidor.headersTimeout = 630_000;
-servidor.listen(PORT, () => console.log(JSON.stringify({ severity: 'INFO', message: `Tienda escuchando en ${PORT}` })));
+servidor.listen(PORT, () => {
+  console.log(JSON.stringify({ severity: 'INFO', message: `Tienda escuchando en ${PORT}` }));
+  if (!process.env.SIN_CALENTAR) calentar();
+});

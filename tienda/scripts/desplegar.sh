@@ -42,6 +42,7 @@ paso "3/5 Despliegue de $SERVICIO ($PROYECTO, $REGION)"
 gcloud run deploy "$SERVICIO" --source . --region "$REGION" --project "$PROYECTO" \
   --allow-unauthenticated --labels owner=antonio,app=hackathon \
   --cpu 1 --memory 512Mi --concurrency 250 --min-instances 1 --max-instances 5 --cpu-boost \
+  --set-env-vars GOOGLE_CLOUD_PROJECT=hackathon-devoteam,GOOGLE_CLOUD_LOCATION=global,MODELO_ASISTENTE=gemini-3.5-flash-lite \
   --quiet || error "Falló el despliegue"
 URL="$(gcloud run services describe "$SERVICIO" --region "$REGION" --project "$PROYECTO" --format='value(status.url)')"
 ok "Desplegado: $URL"
