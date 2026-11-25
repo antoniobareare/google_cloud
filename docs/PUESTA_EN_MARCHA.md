@@ -91,6 +91,11 @@ Pide a Antonio que, con Claude Code abierto en esta carpeta, escriba:
        Usa barras `/`: con `\b` el JSON se corrompe. Genera el JSON con Python para evitar errores de escape.
     2. La carpeta no está marcada como de confianza, así que Claude Code no ejecuta `headersHelper`. Antonio abre
        `claude` una vez en una terminal dentro de la carpeta y acepta el diálogo de confianza. Claude no lo hace por él.
+    3. El script tarda más de 10 s, que es el límite de Claude Code para `headersHelper`. En el registro aparece
+       "headersHelper ... did not return a valid value" a los 10 s. Cada `gcloud` tarda 3–5 s en Windows y los
+       tres servidores arrancan a la vez. Arreglado: el script lee el proyecto de `.env` o de la configuración de
+       gcloud y pide el token directamente a oauth2.googleapis.com con `curl`. Tarda unos 1,3 s y solo recurre a
+       gcloud si eso falla. Los registros están en `%LOCALAPPDATA%\claude-cli-nodejs\Cache\<carpeta>\mcp-logs-<servidor>\`.
   - En Antigravity el CLI está en `%USERPROFILE%\.antigravity-ide\extensions\anthropic.claude-code-*\resources\native-binary\claude.exe`.
 
 ## 6. Entorno Python para ADK (cuando haga falta)
