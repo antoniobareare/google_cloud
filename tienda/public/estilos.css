@@ -35,3 +35,37 @@ td,th{padding:8px;border-bottom:1px solid #e5e5e0;text-align:left}
 .cj h2{font-size:1.1rem;margin:0 0 8px}
 .cj-lineas{margin:8px 0 12px;padding-left:18px}
 .cj-lineas span{font-weight:600;white-space:nowrap}
+
+/* ---- Persona 4: carrito y checkout (carrito.js) ---- */
+.tabla-scroll{max-width:100%;overflow-x:auto}
+.tabla-carrito{width:100%;border-collapse:collapse}
+.tabla-carrito th,.tabla-carrito td{padding:.5rem;border-bottom:1px solid #ddd;text-align:left;vertical-align:middle}
+.boton,.boton-sec{display:inline-block;min-height:44px;padding:.6rem 1.1rem;border:0;border-radius:8px;font-size:1rem;cursor:pointer;text-decoration:none}
+.boton{background:#1d4ed8;color:#fff;font-weight:700}
+.boton-sec{background:#e5e7eb;color:#111}
+.boton-principal{font-size:1.15rem;margin:.75rem 0}
+.form-cantidad{display:flex;flex-wrap:wrap;gap:.4rem;align-items:center}
+.form-cantidad input{width:4.5rem;min-height:44px}
+.form-checkout{display:grid;gap:.4rem;max-width:32rem}
+.form-checkout input{min-height:44px;font-size:1rem;padding:.4rem;width:100%;box-sizing:border-box}
+.error{color:#b91c1c;font-weight:600}
+.aviso,.ok{background:#dcfce7;color:#14532d;padding:.75rem;border-radius:8px}
+.total{font-size:1.25rem}
+.lista-cruzada{list-style:none;padding:0;display:grid;gap:.75rem}
+.lista-cruzada li{display:flex;flex-wrap:wrap;gap:.5rem;align-items:center}
+
+/* ---- Escaparate (escaparate.js) ---- */
+.intro{font-size:1.05rem}
+.indice{display:flex;flex-wrap:wrap;gap:8px 14px;margin:8px 0 16px;font-weight:600}
+.categoria{margin:28px 0}
+.categoria h2{font-size:1.3rem}
+.rejilla{list-style:none;margin:0;padding:0}
+.tarjeta h3{font-size:1.05rem;margin:0}
+.meta{color:#555;font-size:.9rem;margin:0}
+.iva{font-size:.8rem;font-weight:400;color:#555}
+.precio.grande{font-size:1.6rem}
+.atributos{display:grid;grid-template-columns:max-content 1fr;gap:4px 16px;margin:12px 0}
+.atributos dt{font-weight:700}
+.atributos dd{margin:0}
+.form-anadir{margin:0}
+.condiciones{color:#555;font-size:.9rem}
