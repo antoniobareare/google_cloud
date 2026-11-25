@@ -35,6 +35,7 @@ Comprueba primero; instala con winget desde PowerShell (Windows) o con brew (Mac
 | Google Cloud SDK | `gcloud --version` | `winget install --id Google.CloudSDK -e` |
 | GitHub CLI | `gh --version` | `winget install --id GitHub.cli -e` |
 | uv (opcional, entornos rápidos) | `uv --version` | `winget install --id astral-sh.uv -e` |
+| Terraform (solo si el reto trae `.tf`) | `terraform -version` | `winget install --id Hashicorp.Terraform -e` (se instala en `%LOCALAPPDATA%\Microsoft\WinGet\Packages\Hashicorp.Terraform_Microsoft.Winget.Source_8wekyb3d8bbwe`) |
 
 Añade `--accept-source-agreements --accept-package-agreements --silent` para que no pregunte.
 El instalador de Google Cloud SDK pide permisos de administrador: avisa a Antonio.
@@ -63,7 +64,7 @@ gcloud auth application-default login
 - No copies tokens al `.env`: se quedan en el llavero del sistema y en la configuración de gcloud.
 
 ## 4. Proyecto y región (cuando se conozca el reto)
-Pregunta a Antonio el proyecto y la región; no los supongas.
+Pregunta a Antonio el proyecto y la región; no los supongas. Si es un laboratorio con cuenta temporal, sigue docs/LABORATORIO.md.
 ```bash
 gcloud config configurations create hackathon      # opcional: separa la cuenta del reto de la personal
 gcloud config set project <ID>

@@ -39,6 +39,7 @@ Léelo entero al empezar y síguelo siempre.
 - Si se usa una configuración separada: gcloud config configurations activate hackathon
 - Nunca pidas, pegues ni guardes contraseñas, tokens o claves JSON de cuentas de servicio. Usa solo ADC y las credenciales locales de gcloud.
 - Cuentas de laboratorio (Qwiklabs / Skills Boost): son temporales y con permisos limitados. Si algo falla por permisos, explica qué falta; no intentes cambiar IAM sin permiso.
+- Si el reto es un laboratorio (cuenta y proyecto temporales), sigue docs/LABORATORIO.md. Ojo: el proyecto de `.env` tiene prioridad sobre gcloud para los MCP.
 
 ## 3. Inventario (antes de tocar nada)
 Genera docs/inventario.md con:
@@ -98,6 +99,7 @@ Otras causas: variables de entorno o secretos ausentes, región equivocada, imag
 - Prueba de humo antes de construir: script con google-genai que llame al modelo Flash y responda "Hola". Si falla, arregla conexión/API/facturación antes de seguir.
 
 ### 7.2 Elegir modelo
+- Tabla medida de qué modelo usar en cada tarea: docs/modelos.md. En un proyecto nuevo, repite la medición con `scripts/bench_modelos.py`.
 - No inventes IDs: copia el ID exacto y GA desde Model Garden (cambian cada pocos meses).
 - Flash (serie 3.x) para el agente principal y las herramientas.
 - Pro / Gemini 4 solo para el paso de razonamiento duro (planificador, revisor), si la latencia lo permite.
@@ -141,6 +143,7 @@ Otras causas: variables de entorno o secretos ausentes, región equivocada, imag
 
 ### 7.6 RAG (documentos propios)
 Pocos documentos → pásalos directamente al prompt. Corpus gestionado → RAG Engine (herramienta de ADK). Buscador llave en mano → Agent Search. Datos ya en BigQuery/AlloyDB → VECTOR_SEARCH / pgvector.
+Plan detallado, estado del proyecto y qué valora el jurado: docs/rag.md.
 
 ### 7.7 Desplegar
 - Cloud Run (lo más rápido hacia una URL de demo):
@@ -194,6 +197,7 @@ Ajustes, de más a menos impacto:
 4. Cada uso de herramienta = 2 llamadas al modelo (decidir + redactar). Si el flujo es fijo, resuélvelo en código.
 5. BigQuery: `query_and_wait`, modo JOB_CREATION_OPTIONAL, tablas pequeñas o precalculadas, `maximum_bytes_billed`.
 6. Streaming para la latencia percibida (adk web ya lo hace).
+- Modelos probados de verdad (2026-11-25): docs/inventario.md. En global también responden gemini-4-argon/carbon/hydrogen/neon y gemini-3.1-pro-preview; `models.list` muestra modelos que luego dan 404, así que solo vale la llamada real. Pon siempre timeout en el cliente.
 - En hackathon-prueba-antonio, gemini-3.8-flash solo existe en `global` (404 en us-central1, europe-west1, europe-west4); gemini-2.5-flash ya no está disponible (404). Comprueba los modelos del proyecto del reto con `client.models.list(config={"query_base": True})`.
 - Fiabilidad: errores controlados en herramientas, reintentos con espera exponencial, respuestas por defecto. El agente nunca se queda colgado ni devuelve un error sin explicar.
 - Coste: Flash por defecto, contexto acotado, max_iterations / recursion_limit, instancias mínimas a 0, nada caro encendido.
